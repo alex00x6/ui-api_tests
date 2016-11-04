@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Example test suite" parallel="methods">
+    <test name="Smoke-Huyoke Test">
+        <classes>
+            <class name="Jira.Test_Api" />
+        </classes>
+    </test>
+    <listeners>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+    </listeners>
+    <!--<listeners>-->
+    <!--<listener class-name="CustomListener" />-->
+    <!--</listeners>-->
+</suite>
