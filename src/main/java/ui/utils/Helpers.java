@@ -14,6 +14,7 @@ import java.util.Date;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 
 
 /**
@@ -67,6 +68,13 @@ public class Helpers {
         waitForVisibilityByXpath(driver, XPath);
         String aIssueTitle = driver.findElement(By.xpath(XPath)).getText();
         assertTrue(aIssueTitle.contains(text));
+    }
+
+    public void assertNotEqualsByXpath(WebDriver driver, String XPath, String text){
+        driver.navigate().refresh();
+        waitForVisibilityByXpath(driver, XPath);
+        String aIssueTitle = driver.findElement(By.xpath(XPath)).getText();
+        assertFalse(aIssueTitle.contains(text));
     }
 
     public void assertByTitle(WebDriver driver, String title){

@@ -173,7 +173,7 @@ public class Test_Ui {
         //меняем репортЁра :)
         issue.changeReporter(reporter);
 
-        //helpers.assertTextByXpath(driver, ".//*[@id='reporter-val']", issueTypeNew);
+        helpers.assertNotEqualsByXpath(driver, issue.xpath_issue_reporter_button, login);
 
         //делаем скриншотец
         //helpers.makeScreenshot("changeReporter", driver, currentDate);
