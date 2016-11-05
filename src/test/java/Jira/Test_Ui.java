@@ -303,17 +303,13 @@ public class Test_Ui {
         try{
             if(result.getStatus() == ITestResult.SUCCESS){
                 //Do something here
-                System.out.println("passed **********");
             }
             else if(result.getStatus() == ITestResult.FAILURE){
                 //Do something here
-                System.out.println("Failed ***********");
                 helpers.makeScreenshot("_FAILED_"+result.getName(), driver, currentDate);
             }
             else if(result.getStatus() == ITestResult.SKIP ){
-
-                System.out.println("Skiped***********");
-
+                //Do something here
             }
         }
         catch(Exception e){
