@@ -255,7 +255,7 @@ public class Test_Ui {
     }
 
 
-    //@Test
+    @Test(dependsOnGroups = {"UpdateIssue"})
     @TestCaseId("UI-1")
     @Features("Issue")
     @Stories({"SomeStoryForIssue"})
@@ -294,7 +294,7 @@ public class Test_Ui {
     @AfterTest
     public void afterTest(){
         //удаляем чего мы там насоздавали(вынес сюда вызов метода, ибо на мой взгляд пока что так логичнее)
-        deleteCreatedIssue();
+        //deleteCreatedIssue();
         driver.quit();
     }
 
