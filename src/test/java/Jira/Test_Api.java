@@ -7,6 +7,9 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.http.ContentType;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
+import ru.yandex.qatools.allure.annotations.TestCaseId;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertTrue;
@@ -30,6 +33,9 @@ public class Test_Api {
     }
 
 
+    @TestCaseId("API-1")
+    @Features("IssueApi")
+    @Stories({"SomeStoryForIssueApi"})
     @Test(groups = {"Issue"})
     public void createIssueDeleteIssue(){
         RequestGroups requestGroups = new RequestGroups();
@@ -55,6 +61,9 @@ public class Test_Api {
         assertTrue(deleteIssue.response.statusCode()==204); //странная реализация, просто проверял, работает ли
     }
 
+    @TestCaseId("API-1")
+    @Features("IssueApi")
+    @Stories({"SomeStoryForIssueApi"})
     @Test(groups = {"Issue"})
     public void createIssue(){
         RequestGroups requestGroups = new RequestGroups();
@@ -75,6 +84,9 @@ public class Test_Api {
         requestGroups.deleteIssue(issueId);
     }
 
+    @TestCaseId("API-1")
+    @Features("IssueApi")
+    @Stories({"SomeStoryForIssueApi"})
     @Test(groups = {"Issue"})
     public void deleteIssue(){
         RequestGroups requestGroups = new RequestGroups();
@@ -93,6 +105,9 @@ public class Test_Api {
         assertEquals(delete.response.statusCode(), 204);
     }
 
+    @TestCaseId("API-1")
+    @Features("IssueApi")
+    @Stories({"SomeStoryForIssueApi"})
     @Test(groups = {"Issue"})
     public void getIssue(){
         RequestGroups requestGroups = new RequestGroups();
@@ -113,6 +128,9 @@ public class Test_Api {
         requestGroups.deleteIssue(issueId);
     }
 
+    @TestCaseId("API-1")
+    @Features("SearchApi")
+    @Stories({"SomeStoryForApi"})
     @Test(groups = {"Search"}, dependsOnGroups = {"Issue"}, alwaysRun = true)
     public void search(){
         RequestGroups requestGroups = new RequestGroups();
@@ -140,6 +158,9 @@ public class Test_Api {
 
     }
 
+    @TestCaseId("API-1")
+    @Features("CommentApi")
+    @Stories({"SomeStoryForCommentApi"})
     @Test(groups = {"Comment"}, dependsOnMethods = {"createIssue", "deleteIssue"}, alwaysRun = true)
     public void addCommentToIssue(){
         RequestGroups requestGroups = new RequestGroups();

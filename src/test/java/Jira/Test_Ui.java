@@ -44,6 +44,7 @@ public class Test_Ui {
     String reporter = "a.a.piluck";
     String priority = "High";
     String summary_new = "Updated summary, blah blah blah";
+    String project = "QAAUT";
     Boolean useGrid;
 
 
@@ -54,7 +55,9 @@ public class Test_Ui {
         useGrid =false;
     }
 
-    @TestCaseId("login")
+    @TestCaseId("UI-1")
+    @Features("Issue")
+    @Stories({"SomeStoryForIssue"})
     @Test(groups = {"LoginCreate"})
     public void loginSuccessful() {
         WebDriver driver;
@@ -83,7 +86,9 @@ public class Test_Ui {
         driver.quit();
     }
 
-    @TestCaseId("create issue")
+    @TestCaseId("UI-1")
+    @Features("Issue")
+    @Stories({"SomeStoryForIssue"})
     @Test(groups = {"LoginCreate"}, dependsOnMethods = {"loginSuccessful"})
     public void createIssueSuccessful(){
         WebDriver driver;
@@ -99,7 +104,7 @@ public class Test_Ui {
         //находим кнопку Create и нажимаем
         dashboard.clickCreate();
         //делаем так, чтоб issue точно создалась в проекте QAAUT
-        createIssuePopUp.enterProject("QAAUT");
+        createIssuePopUp.enterProject(project);
         //корявым способом меняем со Story на Bug
         createIssuePopUp.enterType(issueType);
         //находим поле самери и пишем туда что-то
@@ -120,9 +125,9 @@ public class Test_Ui {
     }
 
 
-    @TestCaseId("TMS-1")
+    @TestCaseId("UI-1")
     @Features("Issue")
-    @Stories({"CRUDIssue"})
+    @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeTypeOfIssue(){
         WebDriver driver;
@@ -147,9 +152,9 @@ public class Test_Ui {
         driver.quit();
     }
 
-    @TestCaseId("TMS-1")
+    @TestCaseId("UI-1")
     @Features("Issue")
-    @Stories({"CRUDIssue"})
+    @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeReporter(){
         WebDriver driver;
@@ -171,9 +176,9 @@ public class Test_Ui {
         driver.quit();
     }
 
-    @TestCaseId("TMS-1")
+    @TestCaseId("UI-1")
     @Features("Issue")
-    @Stories({"CRUDIssue"})
+    @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changePriority(){
         WebDriver driver;
@@ -195,9 +200,9 @@ public class Test_Ui {
 
     }
 
-    @TestCaseId("TMS-1")
+    @TestCaseId("UI-1")
     @Features("Issue")
-    @Stories({"CRUDIssue"})
+    @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeSummary(){
         WebDriver driver;
@@ -221,9 +226,9 @@ public class Test_Ui {
 
     }
 
-    @TestCaseId("TMS-1")
+    @TestCaseId("UI-1")
     @Features("Issue")
-    @Stories({"CRUDIssue"})
+    @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void addCommentToIssue(){
         WebDriver driver;
@@ -247,6 +252,9 @@ public class Test_Ui {
 
 
     //@Test
+    @TestCaseId("UI-1")
+    @Features("Issue")
+    @Stories({"SomeStoryForIssue"})
     public void deleteCreatedIssue(){
         WebDriver driver;
         if (!useGrid){
@@ -262,6 +270,21 @@ public class Test_Ui {
         //делаем скриншотец
         helpers.makeScreenshot("deleteCreatedIssue", driver, currentDate);
         driver.quit();
+    }
+
+    //TODO
+    //@Test
+    public void loginCreateIssueDeleteIssue(){
+        WebDriver driver = configForChrome();
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
+        LoginPage loginPage = new LoginPage(driver);
+        Dashboard dashboard = new Dashboard(driver);
+        loginPage.completeLogin(login, password);
+        cookie = driver.manage().getCookieNamed("JSESSIONID");
+        dashboard.openPage();
+        dashboard.clickCreate();
+        created_issue = createIssuePopUp.fullCreateIssue(project, summary, issueType);
+
     }
 
     @AfterTest

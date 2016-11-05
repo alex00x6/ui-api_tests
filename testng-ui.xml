@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="JIRA_UI_Tests" parallel="false" thread-count="2">
+<suite name="JIRA_UI_Tests" parallel="methods" thread-count="2">
 	<test name="JiraTestsGRID">
     		<classes>
 		    	<class name="Jira.Test_Ui" />

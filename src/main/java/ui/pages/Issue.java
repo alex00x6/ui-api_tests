@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.qatools.allure.annotations.Step;
 import ui.utils.Helpers;
 
 /**
@@ -15,60 +16,95 @@ public class Issue {
 
     private WebDriver driver;
     Helpers helpers = new Helpers();
+    private final String url_issue = "http://soft.it-hillel.com.ua:8080/browse/";
+
+    private final String xpath_issue_comment_button = "//*[@id=\"comment-issue\"]";
+    private final String xpath_issue_comment_form = "//*[@id=\"comment\"]";
+    private final String xpath_issue_comment_submit_button = "//*[@id=\"issue-comment-add-submit\"]";
+
+    private final String xpath_issue_type_button = "//*[@id=\"type-val\"]";
+    private final String xpath_issue_type_form = "//*[@id=\"issuetype-field\"]";
+
+    private final String xpath_issue_more_button = "//*[@id=\"opsbar-operations_more\"]";
+    private final String xpath_issue_more_delete_button = "//*[@id=\"delete-issue\"]";
+    private final String xpath_issue_delete_submit = "//*[@id=\"delete-issue-submit\"]";
+
+    private final String xpath_issue_reporter_button = ".//*[@id='reporter-val']";
+    private final String xpath_issue_reporter_field = ".//*[@id='reporter-field']";
+
+    private final String xpath_issue_priority_button = ".//*[@id='priority-val']";
+    private final String xpath_issue_priority_field = "//*[@id=\"priority-field\"]";
+
+    private final String xpath_issue_summary_button = ".//*[@id='summary-val']";
+    private final String xpath_issue_summary_field = ".//*[@id='summary']";
+
+
 
     public Issue(WebDriver driver){
         this.driver = driver;
     }
 
+    @Step("open issue page")
     public void openPage(String key){
-        driver.get("http://soft.it-hillel.com.ua:8080/browse/"+key);
+        driver.get(url_issue+key);
     }
 
+    @Step("add comment to issue")
     public void addComment(String comment_text){
-        driver.findElement(By.xpath("//*[@id=\"comment-issue\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"comment\"]")).sendKeys(comment_text);
-        driver.findElement(By.xpath("//*[@id=\"issue-comment-add-submit\"]")).submit();
+        driver.findElement(By.xpath(xpath_issue_comment_button)).click();
+        driver.findElement(By.xpath(xpath_issue_comment_form)).sendKeys(comment_text);
+        driver.findElement(By.xpath(xpath_issue_comment_submit_button)).submit();
     }
 
+
+    @Step("change type of issue bug/task/epic/story")
     public void changeType(String issueType){
 
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         helpers.scrollPageUp(driver);
 
         WebElement type = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"type-val\"]")));
+                .until(ExpectedConditions.elementToBeClickable(By.xpath(xpath_issue_type_button)));
         type.click();
 
-        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).clear();
-        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).sendKeys(issueType, Keys.ALT+"S");
+        driver.findElement(By.xpath(xpath_issue_type_form)).click();
+        driver.findElement(By.xpath(xpath_issue_type_form)).clear();
+        driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");
     }
 
+
+    @Step("delete issue")
     public void deleteIssue(){
-        driver.findElement(By.xpath("//*[@id=\"opsbar-operations_more\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"delete-issue\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"delete-issue-submit\"]")).submit();
+        driver.findElement(By.xpath(xpath_issue_more_button)).click();
+        driver.findElement(By.xpath(xpath_issue_more_delete_button)).click();
+        driver.findElement(By.xpath(xpath_issue_delete_submit)).submit();
     }
 
+
+    @Step("change reporter of issue")
     public void changeReporter(String reporter){
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         //а поле со сменой репортера по странице не ездит(как и приорити и т.п.)
         helpers.scrollPageUp(driver);
 
-        driver.findElement(By.xpath(".//*[@id='reporter-val']")).click();
-        driver.findElement(By.xpath(".//*[@id='reporter-field']")).sendKeys(reporter, Keys.ENTER);
+        driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
+        driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
     }
 
+
+    @Step("change priority of issue")
     public void changePriority(String priority){
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         helpers.scrollPageUp(driver);
 
-        driver.findElement(By.xpath(".//*[@id='priority-val']")).click();
-        driver.findElement(By.xpath("//*[@id=\"priority-field\"]")).sendKeys(priority, Keys.ALT+"S");
+        driver.findElement(By.xpath(xpath_issue_priority_button)).click();
+        driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
     }
 
+
+    @Step("change summary of issue")
     public void changeSummary(String summary){
-        driver.findElement(By.xpath(".//*[@id='summary-val']")).click();
-        driver.findElement(By.xpath(".//*[@id='summary']")).sendKeys(summary, Keys.ALT+"S");
+        driver.findElement(By.xpath(xpath_issue_summary_button)).click();
+        driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
     }
 }
