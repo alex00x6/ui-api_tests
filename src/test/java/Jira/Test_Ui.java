@@ -7,6 +7,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -48,6 +50,9 @@ public class Test_Ui {
     Boolean useGrid;
 
 
+    WebDriver driver;
+
+
 
     @BeforeTest(groups = {"UpdateIssue"})
     public void beforeTest(){
@@ -60,7 +65,6 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups = {"LoginCreate"})
     public void loginSuccessful() {
-        WebDriver driver;
         if (!useGrid){
             driver = configForChrome();}
         else{
@@ -82,8 +86,8 @@ public class Test_Ui {
         //забираем печенье после логина и делаем его доступным для всех
         cookie = driver.manage().getCookieNamed("JSESSIONID");
         //делаемскриншот
-        helpers.makeScreenshot("loginSuccessful", driver, currentDate);
-        driver.quit();
+        //helpers.makeScreenshot("loginSuccessful", driver, currentDate);
+        //driver.quit();
     }
 
     @TestCaseId("UI-1")
@@ -91,11 +95,11 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups = {"LoginCreate"}, dependsOnMethods = {"loginSuccessful"})
     public void createIssueSuccessful(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+        //WebDriver driver;
+        //if (!useGrid){
+        //    driver = configForCookiedChrome();}
+        //else{
+        //   driver = configForCookiedGrid();}
 
         Dashboard dashboard = new Dashboard(driver);
         CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
@@ -120,8 +124,8 @@ public class Test_Ui {
         Assert.assertNotNull(created_issue);
         assertTrue(created_issue.contains("QAAUT-"));
         //делаемскриншот вне зависимости от результата теста...
-        helpers.makeScreenshot("createIssueSuccessful", driver, currentDate);
-        driver.quit();
+        //helpers.makeScreenshot("createIssueSuccessful", driver, currentDate);
+        //driver.quit();
     }
 
 
@@ -130,11 +134,11 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeTypeOfIssue(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+        //WebDriver driver;
+        //if (!useGrid){
+        //    driver = configForCookiedChrome();}
+        //else{
+        //    driver = configForCookiedGrid();}
 
 
         Issue issue = new Issue(driver);
@@ -148,8 +152,8 @@ public class Test_Ui {
         helpers.assertTextByXpath(driver, issue.xpath_issue_type_button, issueTypeNew);
 
         //делаем скриншотец
-        helpers.makeScreenshot("changeTypeOfIssue", driver, currentDate);
-        driver.quit();
+        //helpers.makeScreenshot("changeTypeOfIssue", driver, currentDate);
+        //driver.quit();
     }
 
     @TestCaseId("UI-1")
@@ -157,11 +161,11 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeReporter(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+        //WebDriver driver;
+        //if (!useGrid){
+        //    driver = configForCookiedChrome();}
+        //else{
+        //    driver = configForCookiedGrid();}
 
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
@@ -172,8 +176,8 @@ public class Test_Ui {
         //helpers.assertTextByXpath(driver, ".//*[@id='reporter-val']", issueTypeNew);
 
         //делаем скриншотец
-        helpers.makeScreenshot("changeReporter", driver, currentDate);
-        driver.quit();
+        //helpers.makeScreenshot("changeReporter", driver, currentDate);
+        //driver.quit();
     }
 
     @TestCaseId("UI-1")
@@ -181,11 +185,11 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changePriority(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+        //WebDriver driver;
+       // if (!useGrid){
+        //    driver = configForCookiedChrome();}
+       // else{
+        //    driver = configForCookiedGrid();}
 
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
@@ -195,8 +199,8 @@ public class Test_Ui {
         //проверяем приоритетность
         helpers.assertTextByXpath(driver, issue.xpath_issue_priority_button ,priority);
         //делаем скриншот
-        helpers.makeScreenshot("changePriority", driver, currentDate);
-        driver.quit();
+        //helpers.makeScreenshot("changePriority", driver, currentDate);
+        //driver.quit();
 
     }
 
@@ -205,11 +209,11 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeSummary(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+       // WebDriver driver;
+       // if (!useGrid){
+       //     driver = configForCookiedChrome();}
+       // else{
+       //     driver = configForCookiedGrid();}
 
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
@@ -221,8 +225,8 @@ public class Test_Ui {
         helpers.assertTextByXpath(driver, issue.xpath_issue_summary_button, summary_new);
 
         //делаем скриншотец
-        helpers.makeScreenshot("changeSummary", driver, currentDate);
-        driver.quit();
+        // helpers.makeScreenshot("changeSummary", driver, currentDate);
+        //driver.quit();
 
     }
 
@@ -231,11 +235,11 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void addCommentToIssue(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+        //WebDriver driver;
+        //if (!useGrid){
+        //    driver = configForCookiedChrome();}
+        //else{
+        //    driver = configForCookiedGrid();}
 
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
@@ -245,8 +249,8 @@ public class Test_Ui {
         //проверяем комментность коммента
         helpers.assertTextByXpath(driver, "//*[@id=\"activitymodule\"]/div[2]/div[2]", comment_text);
         //делаем скриншотец
-        helpers.makeScreenshot("addCommentToIssue", driver, currentDate);
-        driver.quit();
+       // helpers.makeScreenshot("addCommentToIssue", driver, currentDate);
+        //driver.quit();
 
     }
 
@@ -256,11 +260,11 @@ public class Test_Ui {
     @Features("Issue")
     @Stories({"SomeStoryForIssue"})
     public void deleteCreatedIssue(){
-        WebDriver driver;
-        if (!useGrid){
-            driver = configForCookiedChrome();}
-        else{
-            driver = configForCookiedGrid();}
+        //WebDriver driver;
+        //if (!useGrid){
+        //    driver = configForCookiedChrome();}
+       // else{
+        //    driver = configForCookiedGrid();}
 
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
@@ -268,14 +272,14 @@ public class Test_Ui {
         //открываем More, нажимаем удалить, подтверждаем
         issue.deleteIssue();
         //делаем скриншотец
-        helpers.makeScreenshot("deleteCreatedIssue", driver, currentDate);
-        driver.quit();
+        //helpers.makeScreenshot("deleteCreatedIssue", driver, currentDate);
+        //driver.quit();
     }
 
     //TODO
     //@Test
     public void loginCreateIssueDeleteIssue(){
-        WebDriver driver = configForChrome();
+        //WebDriver driver = configForChrome();
         CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         LoginPage loginPage = new LoginPage(driver);
         Dashboard dashboard = new Dashboard(driver);
@@ -291,6 +295,30 @@ public class Test_Ui {
     public void afterTest(){
         //удаляем чего мы там насоздавали(вынес сюда вызов метода, ибо на мой взгляд пока что так логичнее)
         deleteCreatedIssue();
+        driver.quit();
+    }
+
+    @AfterMethod
+    public void afterMethod(ITestResult result){
+        try{
+            if(result.getStatus() == ITestResult.SUCCESS){
+                //Do something here
+                System.out.println("passed **********");
+            }
+            else if(result.getStatus() == ITestResult.FAILURE){
+                //Do something here
+                System.out.println("Failed ***********");
+                helpers.makeScreenshot("_FAILED_"+result.getName(), driver, currentDate);
+            }
+            else if(result.getStatus() == ITestResult.SKIP ){
+
+                System.out.println("Skiped***********");
+
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 
