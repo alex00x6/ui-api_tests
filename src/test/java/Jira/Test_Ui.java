@@ -145,7 +145,7 @@ public class Test_Ui {
         //меняем Type of Issue
         issue.changeType(issueTypeNew);
 
-        helpers.assertTextByXpath(driver, "//*[@id=\"type-val\"]", issueTypeNew);
+        helpers.assertTextByXpath(driver, issue.xpath_issue_type_button, issueTypeNew);
 
         //делаем скриншотец
         helpers.makeScreenshot("changeTypeOfIssue", driver, currentDate);
@@ -193,7 +193,7 @@ public class Test_Ui {
         //меняем приоритет
         issue.changePriority(priority);
         //проверяем приоритетность
-        helpers.assertTextByXpath(driver, "//*[@id=\"priority-val\"]",priority);
+        helpers.assertTextByXpath(driver, issue.xpath_issue_priority_button ,priority);
         //делаем скриншот
         helpers.makeScreenshot("changePriority", driver, currentDate);
         driver.quit();
@@ -218,7 +218,7 @@ public class Test_Ui {
         issue.changeSummary(summary_new);
 
         //обновляем страницу, получаем текст, сверяем текст с тем, который должен быть
-        helpers.assertTextByXpath(driver, "//*[@id=\"summary-val\"]", summary_new);
+        helpers.assertTextByXpath(driver, issue.xpath_issue_summary_button, summary_new);
 
         //делаем скриншотец
         helpers.makeScreenshot("changeSummary", driver, currentDate);

@@ -22,20 +22,20 @@ public class Issue {
     private final String xpath_issue_comment_form = "//*[@id=\"comment\"]";
     private final String xpath_issue_comment_submit_button = "//*[@id=\"issue-comment-add-submit\"]";
 
-    private final String xpath_issue_type_button = "//*[@id=\"type-val\"]";
+    public final String xpath_issue_type_button = "//*[@id=\"type-val\"]";
     private final String xpath_issue_type_form = "//*[@id=\"issuetype-field\"]";
 
     private final String xpath_issue_more_button = "//*[@id=\"opsbar-operations_more\"]";
     private final String xpath_issue_more_delete_button = "//*[@id=\"delete-issue\"]";
-    private final String xpath_issue_delete_submit = "//*[@id=\"delete-issue-submit\"]";
+    private final String xpath_issue_delete_submit_button = "//*[@id=\"delete-issue-submit\"]";
 
-    private final String xpath_issue_reporter_button = ".//*[@id='reporter-val']";
+    public final String xpath_issue_reporter_button = ".//*[@id='reporter-val']";
     private final String xpath_issue_reporter_field = ".//*[@id='reporter-field']";
 
-    private final String xpath_issue_priority_button = ".//*[@id='priority-val']";
+    public final String xpath_issue_priority_button = ".//*[@id='priority-val']";
     private final String xpath_issue_priority_field = "//*[@id=\"priority-field\"]";
 
-    private final String xpath_issue_summary_button = ".//*[@id='summary-val']";
+    public final String xpath_issue_summary_button = ".//*[@id='summary-val']";
     private final String xpath_issue_summary_field = ".//*[@id='summary']";
 
 
@@ -77,7 +77,7 @@ public class Issue {
     public void deleteIssue(){
         driver.findElement(By.xpath(xpath_issue_more_button)).click();
         driver.findElement(By.xpath(xpath_issue_more_delete_button)).click();
-        driver.findElement(By.xpath(xpath_issue_delete_submit)).submit();
+        driver.findElement(By.xpath(xpath_issue_delete_submit_button)).submit();
     }
 
 

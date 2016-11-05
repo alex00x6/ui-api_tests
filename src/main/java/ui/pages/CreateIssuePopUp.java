@@ -18,7 +18,9 @@ public class CreateIssuePopUp {
     private final String xpath_createIssue_summary_field = "//*[@id=\"summary\"]";
     private final String xpath_createIssue_assignToMe_button = "//a[@id='assign-to-me-trigger']";
     private final String xpath_createIssue_submit_button = "//*[@id=\"create-issue-submit\"]";
-    //TODO - getKeyOfCreatedIssue?
+
+    private final String xpath_createIssue_created_popup = "//*[@id=\"aui-flag-container\"]/div/div/a";
+    private final String xpath_createIssue_created_popup_attribute = "data-issue-key";
 
     public CreateIssuePopUp(WebDriver driver){
         this.driver = driver;
@@ -71,8 +73,8 @@ public class CreateIssuePopUp {
 
     @Step("get key of recently created issue")
     public String getKeyOfCreatedIssue(){
-        String key =  driver.findElement(By.xpath("//*[@id=\"aui-flag-container\"]/div/div/a"))
-                .getAttribute("data-issue-key");
+        String key =  driver.findElement(By.xpath(xpath_createIssue_created_popup))
+                .getAttribute(xpath_createIssue_created_popup_attribute);
         return key;
     }
 
