@@ -63,6 +63,7 @@ public class CreateIssuePopUp {
     @Step("click assign to me button")
     public void clickAssignToMe(){
         helpers.waitForClickableByXpath(driver, xpath_createIssue_assignToMe_button);
+        helpers.waitForVisibilityByXpath(driver,xpath_createIssue_assignToMe_button);
         driver.findElement(By.xpath(xpath_createIssue_assignToMe_button)).click();
     }
 
@@ -78,10 +79,10 @@ public class CreateIssuePopUp {
         return key;
     }
 
-    public String fullCreateIssue(String project, String summary, String type){
+    public String completeCreateIssue(String project, String summary, String typeOfIssue){
         enterProject(project);
         enterSummary(summary);
-        enterType(type);
+        enterType(typeOfIssue);
         clickAssignToMe();
         clickSubmit();
         String key = getKeyOfCreatedIssue();

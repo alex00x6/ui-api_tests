@@ -45,8 +45,9 @@ public class Issue {
     }
 
     @Step("open issue page")
-    public void openPage(String key){
-        driver.get(url_issue+key);
+    public Issue openPage(String key){
+        this.driver.get(url_issue+key);
+        return this;
     }
 
     @Step("add comment to issue")
@@ -55,7 +56,6 @@ public class Issue {
         driver.findElement(By.xpath(xpath_issue_comment_form)).sendKeys(comment_text);
         driver.findElement(By.xpath(xpath_issue_comment_submit_button)).submit();
     }
-
 
     @Step("change type of issue bug/task/epic/story")
     public void changeType(String issueType){
@@ -72,14 +72,12 @@ public class Issue {
         driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");
     }
 
-
     @Step("delete issue")
     public void deleteIssue(){
         driver.findElement(By.xpath(xpath_issue_more_button)).click();
         driver.findElement(By.xpath(xpath_issue_more_delete_button)).click();
         driver.findElement(By.xpath(xpath_issue_delete_submit_button)).submit();
     }
-
 
     @Step("change reporter of issue")
     public void changeReporter(String reporter){

@@ -24,19 +24,16 @@ public class LoginPage {
         driver.get(url_login);
     }
 
-
     @Step("enter login")
     public void enterLogin(String login){
         helpers.waitForVisibilityByXpath(driver, xpath_login_username_form);
         driver.findElement(By.xpath(xpath_login_username_form)).sendKeys(login);
     }
 
-
     @Step("enter password")
     public void enterPassword(String password){
         driver.findElement(By.xpath(xpath_login_password_form)).sendKeys(password);
     }
-
 
     @Step("click submit")
     public void clickSubmit(){

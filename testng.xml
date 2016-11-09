@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="JIRA_Tests" parallel="tests">
-	<test name="Jira_UI_Test">
+
+	<test name="Jira_UI_Test_Grid_Chrome">
+		<parameter name="pUseGrid" value="true"/>
+		<parameter name="pBrowser" value="chrome"/>
     		<classes>
 		    	<class name="Jira.Test_Ui" />
 		    </classes>
 	</test>
+
+	<test name="Jira_UI_Test_Chrome">
+		<parameter name="pUseGrid" value="false"/>
+		<parameter name="pBrowser" value="chrome"/>
+		<classes>
+			<class name="Jira.Test_Ui" />
+		</classes>
+	</test>
+
 	<test name="Jira_API_Test">
 		<classes>
 			<class name="Jira.Test_Api" />
 		</classes>
 	</test>
+	
 </suite>

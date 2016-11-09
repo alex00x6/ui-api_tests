@@ -4,7 +4,6 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.ITestResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,34 +76,14 @@ public class Helpers {
         assertFalse(aIssueTitle.contains(text));
     }
 
-    public void assertByTitle(WebDriver driver, String title){
+    public void assertEqualsByTitle(WebDriver driver, String title){
         String currentTitle = driver.getTitle();
         assertEquals(currentTitle, title);
     }
 
-    public void checkTestResult(ITestResult result){
-        try{
-            if(result.getStatus() == ITestResult.SUCCESS){
-
-                //Do something here
-                System.out.println("passed **********");
-            }
-
-            else if(result.getStatus() == ITestResult.FAILURE){
-                //Do something here
-                System.out.println("Failed ***********");
-
-            }
-
-            else if(result.getStatus() == ITestResult.SKIP ){
-
-                System.out.println("Skiped***********");
-
-            }
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
-
+    public void assertContainsByTitle(WebDriver driver, String title){
+        String currentTitle = driver.getTitle();
+        assertTrue(currentTitle.contains(title));
     }
+
 }

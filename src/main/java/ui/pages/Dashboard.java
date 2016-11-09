@@ -17,12 +17,10 @@ public class Dashboard {
         this.driver = driver;
     }
 
-
     @Step("open dashboard page")
     public void openPage(){
         driver.get(url_dashboard);
     }
-
 
     @Step("click create issue button")
     public void clickCreate(){driver.findElement(By.xpath(xpath_dashboard_create_button)).click();}

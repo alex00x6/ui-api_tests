@@ -8,10 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
@@ -47,17 +44,22 @@ public class Test_Ui {
     String priority = "High";
     String summary_new = "Updated summary, blah blah blah";
     String project = "QAAUT";
+
     Boolean useGrid;
+    String browser;
 
 
     WebDriver driver;
 
 
-
+    @Parameters({"pUseGrid", "pBrowser"})
     @BeforeTest(groups = {"UpdateIssue"})
-    public void beforeTest(){
+    public void beforeTest(Boolean pUseGrid, String pBrowser){
         currentDate = helpers.getTime();
-        useGrid =false;
+        //useGrid = true;
+        //browser = "firefox";
+        useGrid = pUseGrid;
+        browser = pBrowser;
     }
 
     @TestCaseId("UI-1")
@@ -65,10 +67,26 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups = {"LoginCreate"})
     public void loginSuccessful() {
-        if (!useGrid){
-            driver = configForChrome();}
+        if (useGrid){
+            switch(browser){
+                case("chrome"):
+                    driver = configForGridChrome();
+                    break;
+                case("firefox"):
+                    driver = configForGridFirefox();
+                    break;
+                }
+            }
         else{
-            driver = configForGrid();}
+            switch(browser) {
+                case ("chrome"):
+                    driver = configForChrome();
+                    break;
+                case ("firefox"):
+                    //driver = configForFirefox();
+                    break;
+                }
+            }
 
         LoginPage loginPage = new LoginPage(driver);
         String newTitle = "System Dashboard - JIRA";
@@ -76,18 +94,13 @@ public class Test_Ui {
         //открываем страницу логина. ну в целом логично
         loginPage.openPage();
         // выполняем проверку, попали ли мы на страницу с нужным тайтлом
-        helpers.assertByTitle(driver, title);
+        helpers.assertEqualsByTitle(driver, title);
         //делаем логиномагию
-        loginPage.enterLogin(login);
-        loginPage.enterPassword(password);
-        loginPage.clickSubmit();
+        loginPage.completeLogin(login, password);
         //проверяем уже новый тайтл
-        helpers.assertByTitle(driver, newTitle);
+        helpers.assertEqualsByTitle(driver, newTitle);
         //забираем печенье после логина и делаем его доступным для всех
         cookie = driver.manage().getCookieNamed("JSESSIONID");
-        //делаемскриншот
-        //helpers.makeScreenshot("loginSuccessful", driver, currentDate);
-        //driver.quit();
     }
 
     @TestCaseId("UI-1")
@@ -95,37 +108,18 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups = {"LoginCreate"}, dependsOnMethods = {"loginSuccessful"})
     public void createIssueSuccessful(){
-        //WebDriver driver;
-        //if (!useGrid){
-        //    driver = configForCookiedChrome();}
-        //else{
-        //   driver = configForCookiedGrid();}
-
         Dashboard dashboard = new Dashboard(driver);
         CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         //открываем дашборд
         dashboard.openPage();
         //находим кнопку Create и нажимаем
         dashboard.clickCreate();
-        //делаем так, чтоб issue точно создалась в проекте QAAUT
-        createIssuePopUp.enterProject(project);
-        //корявым способом меняем со Story на Bug
-        createIssuePopUp.enterType(issueType);
-        //находим поле самери и пишем туда что-то
-        createIssuePopUp.enterSummary(summary);
-        //нажимаем на элемент assign to me
-        createIssuePopUp.clickAssignToMe();
-        //нажимаем кнопку submit
-        createIssuePopUp.clickSubmit();
-        //получаем ключ созданной issue, чтоб потом с ней работать
-        created_issue = createIssuePopUp.getKeyOfCreatedIssue();
+        //создаем issue(вводим проект, самери, тип, жмем assignToMe, submit) и получаем ключ созданной issue, чтоб потом с ней работать
+        created_issue = createIssuePopUp.completeCreateIssue(project, summary, issueType);
         System.out.println(created_issue);
         //проверяем что всё отработало, и мы забрали то, что надо
         Assert.assertNotNull(created_issue);
         assertTrue(created_issue.contains("QAAUT-"));
-        //делаемскриншот вне зависимости от результата теста...
-        //helpers.makeScreenshot("createIssueSuccessful", driver, currentDate);
-        //driver.quit();
     }
 
 
@@ -150,10 +144,6 @@ public class Test_Ui {
         issue.changeType(issueTypeNew);
 
         helpers.assertTextByXpath(driver, issue.xpath_issue_type_button, issueTypeNew);
-
-        //делаем скриншотец
-        //helpers.makeScreenshot("changeTypeOfIssue", driver, currentDate);
-        //driver.quit();
     }
 
     @TestCaseId("UI-1")
@@ -174,10 +164,6 @@ public class Test_Ui {
         issue.changeReporter(reporter);
 
         helpers.assertNotEqualsByXpath(driver, issue.xpath_issue_reporter_button, login);
-
-        //делаем скриншотец
-        //helpers.makeScreenshot("changeReporter", driver, currentDate);
-        //driver.quit();
     }
 
     @TestCaseId("UI-1")
@@ -198,9 +184,6 @@ public class Test_Ui {
         issue.changePriority(priority);
         //проверяем приоритетность
         helpers.assertTextByXpath(driver, issue.xpath_issue_priority_button ,priority);
-        //делаем скриншот
-        //helpers.makeScreenshot("changePriority", driver, currentDate);
-        //driver.quit();
 
     }
 
@@ -209,12 +192,6 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeSummary(){
-       // WebDriver driver;
-       // if (!useGrid){
-       //     driver = configForCookiedChrome();}
-       // else{
-       //     driver = configForCookiedGrid();}
-
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
         issue.openPage(created_issue);
@@ -224,10 +201,6 @@ public class Test_Ui {
         //обновляем страницу, получаем текст, сверяем текст с тем, который должен быть
         helpers.assertTextByXpath(driver, issue.xpath_issue_summary_button, summary_new);
 
-        //делаем скриншотец
-        // helpers.makeScreenshot("changeSummary", driver, currentDate);
-        //driver.quit();
-
     }
 
     @TestCaseId("UI-1")
@@ -235,12 +208,6 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void addCommentToIssue(){
-        //WebDriver driver;
-        //if (!useGrid){
-        //    driver = configForCookiedChrome();}
-        //else{
-        //    driver = configForCookiedGrid();}
-
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
         issue.openPage(created_issue);
@@ -248,47 +215,44 @@ public class Test_Ui {
         issue.addComment(comment_text);
         //проверяем комментность коммента
         helpers.assertTextByXpath(driver, "//*[@id=\"activitymodule\"]/div[2]/div[2]", comment_text);
-        //делаем скриншотец
-       // helpers.makeScreenshot("addCommentToIssue", driver, currentDate);
-        //driver.quit();
 
     }
 
 
-    @Test(dependsOnGroups = {"UpdateIssue"})
+    @Test(dependsOnGroups = {"UpdateIssue"}, alwaysRun = true)
     @TestCaseId("UI-1")
     @Features("Issue")
     @Stories({"SomeStoryForIssue"})
     public void deleteCreatedIssue(){
-        //WebDriver driver;
-        //if (!useGrid){
-        //    driver = configForCookiedChrome();}
-       // else{
-        //    driver = configForCookiedGrid();}
-
         Issue issue = new Issue(driver);
         //открываем страницу нужной issue
         issue.openPage(created_issue);
         //открываем More, нажимаем удалить, подтверждаем
         issue.deleteIssue();
-        //делаем скриншотец
-        //helpers.makeScreenshot("deleteCreatedIssue", driver, currentDate);
-        //driver.quit();
     }
 
     //TODO
     //@Test
     public void loginCreateIssueDeleteIssue(){
-        //WebDriver driver = configForChrome();
+       // if (!useGrid){
+       //     driver = configForChrome();}
+       // else{
+       //     driver = configForGridChrome();}
+
         CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         LoginPage loginPage = new LoginPage(driver);
         Dashboard dashboard = new Dashboard(driver);
+        Issue issue = new Issue(driver);
         loginPage.completeLogin(login, password);
-        cookie = driver.manage().getCookieNamed("JSESSIONID");
+        Cookie cookie = driver.manage().getCookieNamed("JSESSIONID");
         dashboard.openPage();
         dashboard.clickCreate();
-        created_issue = createIssuePopUp.fullCreateIssue(project, summary, issueType);
-
+        String created_issue = createIssuePopUp.completeCreateIssue(project, summary, issueType);
+        issue.openPage(created_issue);
+        helpers.assertContainsByTitle(driver, created_issue);
+        issue.deleteIssue();
+        issue.openPage(created_issue);
+        helpers.assertEqualsByTitle(driver, "Issue Navigator - JIRA");
     }
 
     @AfterTest
@@ -318,7 +282,7 @@ public class Test_Ui {
     }
 
 
-    public WebDriver configForGrid(){
+    public WebDriver configForGridChrome(){
         URL hostURL = null;
         try {
             hostURL = new URL("http://localhost:4444/wd/hub");
@@ -330,6 +294,35 @@ public class Test_Ui {
         capability.setPlatform(Platform.LINUX);
 
         WebDriver driver = new RemoteWebDriver(hostURL, capability);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        // разворачивает окно браузера
+        driver.manage().window().maximize();
+        return driver;
+    }
+
+    public WebDriver configForGridFirefox(){
+        URL hostURL = null;
+        try {
+            hostURL = new URL("http://localhost:4444/wd/hub");
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        DesiredCapabilities capability = DesiredCapabilities.firefox();
+        capability.setBrowserName("firefox");
+        capability.setPlatform(Platform.LINUX);
+
+        WebDriver driver = new RemoteWebDriver(hostURL, capability);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        // разворачивает окно браузера
+        driver.manage().window().maximize();
+        return driver;
+    }
+
+    public WebDriver configForChrome(){
+        WebDriver driver = new ChromeDriver();
+        //currentDate = helpers.getTime();
+        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         // разворачивает окно браузера
         driver.manage().window().maximize();
@@ -359,16 +352,6 @@ public class Test_Ui {
         return driver;
     }
 
-    public WebDriver configForChrome(){
-        WebDriver driver = new ChromeDriver();
-        //currentDate = helpers.getTime();
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        // разворачивает окно браузера
-        driver.manage().window().maximize();
-        return driver;
-    }
 
     public WebDriver configForCookiedChrome(){
         System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
