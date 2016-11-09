@@ -69,11 +69,15 @@ public class CreateIssuePopUp {
 
     @Step("click submit button")
     public void clickSubmit(){
+        helpers.waitForClickableByXpath(driver, xpath_createIssue_submit_button);
+        helpers.waitForVisibilityByXpath(driver,xpath_createIssue_submit_button);
+
         driver.findElement(By.xpath(xpath_createIssue_submit_button)).click();
     }
 
     @Step("get key of recently created issue")
     public String getKeyOfCreatedIssue(){
+        helpers.waitForVisibilityByXpath(driver, xpath_createIssue_created_popup);
         String key =  driver.findElement(By.xpath(xpath_createIssue_created_popup))
                 .getAttribute(xpath_createIssue_created_popup_attribute);
         return key;

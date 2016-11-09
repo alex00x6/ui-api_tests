@@ -110,16 +110,18 @@ public class Test_Ui {
     public void createIssueSuccessful(){
         Dashboard dashboard = new Dashboard(driver);
         CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
+        Issue issue = new Issue(driver);
         //открываем дашборд
         dashboard.openPage();
         //находим кнопку Create и нажимаем
         dashboard.clickCreate();
         //создаем issue(вводим проект, самери, тип, жмем assignToMe, submit) и получаем ключ созданной issue, чтоб потом с ней работать
-        created_issue = createIssuePopUp.completeCreateIssue(project, summary, issueType);
+        String created_issue = createIssuePopUp.completeCreateIssue(project, summary, issueType);
         System.out.println(created_issue);
         //проверяем что всё отработало, и мы забрали то, что надо
         Assert.assertNotNull(created_issue);
         assertTrue(created_issue.contains("QAAUT-"));
+        issue.openPage(created_issue).deleteIssue();
     }
 
 
@@ -134,8 +136,13 @@ public class Test_Ui {
         //else{
         //    driver = configForCookiedGrid();}
 
-
+        Dashboard dashboard = new Dashboard(driver);
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         Issue issue = new Issue(driver);
+
+        dashboard.openPage().clickCreate();
+        String created_issue = createIssuePopUp.completeCreateIssue(project,summary,issueType);
+
 
         //открываем страницу нужной issue
         issue.openPage(created_issue);
@@ -144,6 +151,8 @@ public class Test_Ui {
         issue.changeType(issueTypeNew);
 
         helpers.assertTextByXpath(driver, issue.xpath_issue_type_button, issueTypeNew);
+
+        issue.openPage(created_issue).deleteIssue();
     }
 
     @TestCaseId("UI-1")
@@ -157,13 +166,21 @@ public class Test_Ui {
         //else{
         //    driver = configForCookiedGrid();}
 
+        Dashboard dashboard = new Dashboard(driver);
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         Issue issue = new Issue(driver);
+
+        dashboard.openPage().clickCreate();
+        String created_issue = createIssuePopUp.completeCreateIssue(project,summary,issueType);
+
         //открываем страницу нужной issue
         issue.openPage(created_issue);
         //меняем репортЁра :)
         issue.changeReporter(reporter);
 
         helpers.assertNotEqualsByXpath(driver, issue.xpath_issue_reporter_button, login);
+
+        issue.openPage(created_issue).deleteIssue();
     }
 
     @TestCaseId("UI-1")
@@ -177,13 +194,21 @@ public class Test_Ui {
        // else{
         //    driver = configForCookiedGrid();}
 
+        Dashboard dashboard = new Dashboard(driver);
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         Issue issue = new Issue(driver);
+
+        dashboard.openPage().clickCreate();
+        String created_issue = createIssuePopUp.completeCreateIssue(project,summary,issueType);
+
         //открываем страницу нужной issue
         issue.openPage(created_issue);
         //меняем приоритет
         issue.changePriority(priority);
         //проверяем приоритетность
         helpers.assertTextByXpath(driver, issue.xpath_issue_priority_button ,priority);
+
+        issue.openPage(created_issue).deleteIssue();
 
     }
 
@@ -192,7 +217,13 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void changeSummary(){
+        Dashboard dashboard = new Dashboard(driver);
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         Issue issue = new Issue(driver);
+
+        dashboard.openPage().clickCreate();
+        String created_issue = createIssuePopUp.completeCreateIssue(project,summary,issueType);
+
         //открываем страницу нужной issue
         issue.openPage(created_issue);
         //меняем summary
@@ -201,6 +232,7 @@ public class Test_Ui {
         //обновляем страницу, получаем текст, сверяем текст с тем, который должен быть
         helpers.assertTextByXpath(driver, issue.xpath_issue_summary_button, summary_new);
 
+        issue.openPage(created_issue).deleteIssue();
     }
 
     @TestCaseId("UI-1")
@@ -208,7 +240,13 @@ public class Test_Ui {
     @Stories({"SomeStoryForIssue"})
     @Test(groups={"UpdateIssue"}, dependsOnGroups = {"LoginCreate"})
     public void addCommentToIssue(){
+        Dashboard dashboard = new Dashboard(driver);
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         Issue issue = new Issue(driver);
+
+        dashboard.openPage().clickCreate();
+        String created_issue = createIssuePopUp.completeCreateIssue(project,summary,issueType);
+
         //открываем страницу нужной issue
         issue.openPage(created_issue);
         //добавляем коммент
@@ -216,6 +254,7 @@ public class Test_Ui {
         //проверяем комментность коммента
         helpers.assertTextByXpath(driver, "//*[@id=\"activitymodule\"]/div[2]/div[2]", comment_text);
 
+        issue.openPage(created_issue).deleteIssue();
     }
 
 
@@ -224,11 +263,19 @@ public class Test_Ui {
     @Features("Issue")
     @Stories({"SomeStoryForIssue"})
     public void deleteCreatedIssue(){
+        Dashboard dashboard = new Dashboard(driver);
+        CreateIssuePopUp createIssuePopUp = new CreateIssuePopUp(driver);
         Issue issue = new Issue(driver);
+
+        dashboard.openPage().clickCreate();
+        String created_issue = createIssuePopUp.completeCreateIssue(project,summary,issueType);
+
         //открываем страницу нужной issue
         issue.openPage(created_issue);
         //открываем More, нажимаем удалить, подтверждаем
         issue.deleteIssue();
+        issue.openPage(created_issue);
+        helpers.assertEqualsByTitle(driver, "Issue Navigator - JIRA");
     }
 
     //TODO

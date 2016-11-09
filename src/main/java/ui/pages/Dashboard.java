@@ -18,8 +18,9 @@ public class Dashboard {
     }
 
     @Step("open dashboard page")
-    public void openPage(){
-        driver.get(url_dashboard);
+    public Dashboard openPage(){
+        this.driver.get(url_dashboard);
+        return this;
     }
 
     @Step("click create issue button")

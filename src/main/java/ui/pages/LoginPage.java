@@ -41,7 +41,6 @@ public class LoginPage {
     }
 
     public void completeLogin(String login, String password){
-        openPage();
         enterLogin(login);
         enterPassword(password);
         clickSubmit();

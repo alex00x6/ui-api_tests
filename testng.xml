@@ -22,5 +22,5 @@
 			<class name="Jira.Test_Api" />
 		</classes>
 	</test>
-	
+
 </suite>

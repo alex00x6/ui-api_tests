@@ -86,6 +86,7 @@ public class Issue {
         helpers.scrollPageUp(driver);
 
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
+        helpers.waitForVisibilityByXpath(driver,xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
     }
 

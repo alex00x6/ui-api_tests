@@ -111,16 +111,6 @@
                         <!-- TestNG suite XML files -->
                         <suiteXmlFile>testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
-                    <properties>
-                        <property>
-                            <name>usedefaultlisteners</name>
-                            <value>false</value>
-                        </property>
-                        <property>
-                            <name>listener</name>
-                            <value>org.uncommons.reportng.HTMLReporter</value>
-                        </property>
-                    </properties>
                 </configuration>
                 <dependencies>
                     <dependency>
