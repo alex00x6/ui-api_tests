@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
+import ui.utils.DriverManager;
 import ui.utils.Helpers;
 
 /**
@@ -22,15 +23,15 @@ public class CreateIssuePopUp {
     private final String xpath_createIssue_created_popup = "//*[@id=\"aui-flag-container\"]/div/div/a";
     private final String xpath_createIssue_created_popup_attribute = "data-issue-key";
 
-    public CreateIssuePopUp(WebDriver driver){
-        this.driver = driver;
+    public CreateIssuePopUp(){
+        this.driver = DriverManager.getDriver();
     }
 
 
     @Step("enter project name")
     public void enterProject(String project){
-        helpers.waitForVisibilityByXpath(driver, xpath_createIssue_project_field);
-        helpers.waitForClickableByXpath(driver, xpath_createIssue_project_field);
+        helpers.waitForVisibilityByXpath(xpath_createIssue_project_field);
+        helpers.waitForClickableByXpath(xpath_createIssue_project_field);
 
         driver.findElement(By.xpath(xpath_createIssue_project_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_project_field)).clear();
@@ -40,8 +41,8 @@ public class CreateIssuePopUp {
 
     @Step("enter type of issue")
     public void enterType(String issueType){
-        helpers.waitForVisibilityByXpath(driver, xpath_createIssue_type_field);
-        helpers.waitForClickableByXpath(driver, xpath_createIssue_type_field);
+        helpers.waitForVisibilityByXpath(xpath_createIssue_type_field);
+        helpers.waitForClickableByXpath(xpath_createIssue_type_field);
 
         driver.findElement(By.xpath(xpath_createIssue_type_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_type_field)).clear();
@@ -51,8 +52,8 @@ public class CreateIssuePopUp {
 
     @Step("enter issue summary")
     public void enterSummary(String summary){
-        helpers.waitForVisibilityByXpath(driver, xpath_createIssue_summary_field);
-        helpers.waitForClickableByXpath(driver, xpath_createIssue_summary_field);
+        helpers.waitForVisibilityByXpath(xpath_createIssue_summary_field);
+        helpers.waitForClickableByXpath(xpath_createIssue_summary_field);
 
         driver.findElement(By.xpath(xpath_createIssue_summary_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_summary_field)).clear();
@@ -62,22 +63,22 @@ public class CreateIssuePopUp {
 
     @Step("click assign to me button")
     public void clickAssignToMe(){
-        helpers.waitForClickableByXpath(driver, xpath_createIssue_assignToMe_button);
-        helpers.waitForVisibilityByXpath(driver,xpath_createIssue_assignToMe_button);
+        helpers.waitForClickableByXpath(xpath_createIssue_assignToMe_button);
+        helpers.waitForVisibilityByXpath(xpath_createIssue_assignToMe_button);
         driver.findElement(By.xpath(xpath_createIssue_assignToMe_button)).click();
     }
 
     @Step("click submit button")
     public void clickSubmit(){
-        helpers.waitForClickableByXpath(driver, xpath_createIssue_submit_button);
-        helpers.waitForVisibilityByXpath(driver,xpath_createIssue_submit_button);
+        helpers.waitForClickableByXpath(xpath_createIssue_submit_button);
+        helpers.waitForVisibilityByXpath(xpath_createIssue_submit_button);
 
         driver.findElement(By.xpath(xpath_createIssue_submit_button)).click();
     }
 
     @Step("get key of recently created issue")
     public String getKeyOfCreatedIssue(){
-        helpers.waitForVisibilityByXpath(driver, xpath_createIssue_created_popup);
+        helpers.waitForVisibilityByXpath(xpath_createIssue_created_popup);
         String key =  driver.findElement(By.xpath(xpath_createIssue_created_popup))
                 .getAttribute(xpath_createIssue_created_popup_attribute);
         return key;

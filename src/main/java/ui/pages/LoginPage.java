@@ -3,6 +3,7 @@ package ui.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
+import ui.utils.DriverManager;
 import ui.utils.Helpers;
 
 public class LoginPage {
@@ -13,20 +14,22 @@ public class LoginPage {
     private final String xpath_login_username_form = "//input[@id='login-form-username']";
     private final String xpath_login_password_form = "//input[@id='login-form-password']";
     private final String xpath_login_submit_button = "//input[@id='login-form-submit']";
+    private final String xpath_login_rememberMe_button = "//*[@id=\"login-form-remember-me\"]";
 
-    public LoginPage(WebDriver driver){
-        this.driver = driver;
+    public LoginPage(){
+        this.driver = DriverManager.getDriver();
     }
 
 
     @Step("open login page")
-    public void openPage(){
-        driver.get(url_login);
+    public LoginPage openPage(){
+        this.driver.get(url_login);
+        return this;
     }
 
     @Step("enter login")
     public void enterLogin(String login){
-        helpers.waitForVisibilityByXpath(driver, xpath_login_username_form);
+        helpers.waitForVisibilityByXpath(xpath_login_username_form);
         driver.findElement(By.xpath(xpath_login_username_form)).sendKeys(login);
     }
 
@@ -34,6 +37,9 @@ public class LoginPage {
     public void enterPassword(String password){
         driver.findElement(By.xpath(xpath_login_password_form)).sendKeys(password);
     }
+
+    @Step("click remember me(ffs, why the fuck i need this? it worked without it.)")
+    public void clickRememberMe(){driver.findElement(By.xpath(xpath_login_rememberMe_button)).click();}
 
     @Step("click submit")
     public void clickSubmit(){
@@ -43,6 +49,7 @@ public class LoginPage {
     public void completeLogin(String login, String password){
         enterLogin(login);
         enterPassword(password);
+        clickRememberMe();
         clickSubmit();
     }
 }

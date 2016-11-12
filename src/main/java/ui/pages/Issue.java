@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Step;
+import ui.utils.DriverManager;
 import ui.utils.Helpers;
 
 /**
@@ -40,8 +41,8 @@ public class Issue {
 
 
 
-    public Issue(WebDriver driver){
-        this.driver = driver;
+    public Issue(){
+        this.driver = DriverManager.getDriver();
     }
 
     @Step("open issue page")
@@ -61,7 +62,7 @@ public class Issue {
     public void changeType(String issueType){
 
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
-        helpers.scrollPageUp(driver);
+        helpers.scrollPageUp();
 
         WebElement type = (new WebDriverWait(driver, 10))
                 .until(ExpectedConditions.elementToBeClickable(By.xpath(xpath_issue_type_button)));
@@ -83,10 +84,10 @@ public class Issue {
     public void changeReporter(String reporter){
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         //а поле со сменой репортера по странице не ездит(как и приорити и т.п.)
-        helpers.scrollPageUp(driver);
+        helpers.scrollPageUp();
 
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
-        helpers.waitForVisibilityByXpath(driver,xpath_issue_reporter_field);
+        //helpers.waitForVisibilityByXpath(xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
     }
 
@@ -94,7 +95,7 @@ public class Issue {
     @Step("change priority of issue")
     public void changePriority(String priority){
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
-        helpers.scrollPageUp(driver);
+        helpers.scrollPageUp();
 
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
         driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");

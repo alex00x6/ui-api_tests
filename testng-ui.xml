@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="JIRA_UI_Tests" parallel="false" thread-count="2">
+<suite name="JIRA_UI_Tests" parallel="tests">
 	<test name="JiraTestsGRID">
-		<parameter name="pUseGrid" value="true"/>
-		<parameter name="pBrowser" value="chrome"/>
+		<parameter name="useGrid" value="true"/>
+		<parameter name="browserName" value="chrome"/>
     		<classes>
 		    	<class name="Jira.Test_Ui" />
 		    </classes>
+	</test>
+
+	<test name="JiraTestsGRID_FF">
+		<parameter name="useGrid" value="true"/>
+		<parameter name="browserName" value="firefox"/>
+		<classes>
+			<class name="Jira.Test_Ui" />
+		</classes>
 	</test>
 </suite>

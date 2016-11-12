@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="JIRA_Tests" parallel="tests">
 
+	<listeners>
+		<listener class-name="ui.utils.TestListener"></listener>
+	</listeners>
+
 	<test name="Jira_UI_Test_Grid_Chrome">
-		<parameter name="pUseGrid" value="true"/>
-		<parameter name="pBrowser" value="chrome"/>
+		<parameter name="useGrid" value="true"/>
+		<parameter name="browserName" value="chrome"/>
     		<classes>
 		    	<class name="Jira.Test_Ui" />
 		    </classes>
 	</test>
 
-	<test name="Jira_UI_Test_Chrome">
-		<parameter name="pUseGrid" value="false"/>
-		<parameter name="pBrowser" value="chrome"/>
+	<test name="Jira_UI_Test_Grid_FireFox">
+		<parameter name="useGrid" value="true"/>
+		<parameter name="browserName" value="firefox"/>
 		<classes>
 			<class name="Jira.Test_Ui" />
 		</classes>
