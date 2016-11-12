@@ -34,12 +34,6 @@ public class Test_Ui {
     String summary_new = "Updated summary, blah blah blah";
     String project = "QAAUT";
 
-
-
-
-
-    
-
     @TestCaseId("UI-1")
     @Features("Issue")
     @Stories({"SomeStoryForIssue"})
