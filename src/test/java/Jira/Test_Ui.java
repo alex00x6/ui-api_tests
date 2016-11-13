@@ -53,7 +53,8 @@ public class Test_Ui {
         loginPage.completeLogin(login, password);
         //проверяем уже новый тайтл
 
-        helpers.sleep(5000);
+        //TODO - адекватный вейт для FF
+        //helpers.sleep(5000);
 
         helpers.assertEqualsByTitle(newTitle);
     }

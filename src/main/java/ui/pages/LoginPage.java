@@ -29,7 +29,7 @@ public class LoginPage {
 
     @Step("enter login")
     public void enterLogin(String login){
-        helpers.waitForVisibilityByXpath(xpath_login_username_form);
+        helpers.waitForClickableByXpath(xpath_login_username_form);
         driver.findElement(By.xpath(xpath_login_username_form)).sendKeys(login);
     }
 
