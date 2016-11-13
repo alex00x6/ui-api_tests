@@ -16,7 +16,6 @@ import ui.utils.Helpers;
 public class Issue {
 
     private WebDriver driver;
-    Helpers helpers = new Helpers();
     private final String url_issue = "http://soft.it-hillel.com.ua:8080/browse/";
 
     private final String xpath_issue_comment_button = "//*[@id=\"comment-issue\"]";
@@ -60,6 +59,7 @@ public class Issue {
 
     @Step("change type of issue bug/task/epic/story")
     public void changeType(String issueType){
+        Helpers helpers = new Helpers();
 
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         helpers.scrollPageUp();
@@ -82,6 +82,7 @@ public class Issue {
 
     @Step("change reporter of issue")
     public void changeReporter(String reporter){
+        Helpers helpers = new Helpers();
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         //а поле со сменой репортера по странице не ездит(как и приорити и т.п.)
         helpers.scrollPageUp();
@@ -94,9 +95,12 @@ public class Issue {
 
     @Step("change priority of issue")
     public void changePriority(String priority){
+        Helpers helpers = new Helpers();
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         helpers.scrollPageUp();
 
+        helpers.waitForVisibilityByXpath(xpath_issue_priority_button);
+        helpers.waitForClickableByXpath(xpath_issue_priority_button);
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
         driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
     }

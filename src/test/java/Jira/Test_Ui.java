@@ -79,7 +79,7 @@ public class Test_Ui {
         dashboard.clickCreate();
         //создаем issue(вводим проект, самери, тип, жмем assignToMe, submit) и получаем ключ созданной issue, чтоб потом с ней работать
         String created_issue = createIssuePopUp.completeCreateIssue(project, summary, issueType);
-        System.out.println(created_issue);
+        //System.out.println(created_issue);
         //проверяем что всё отработало, и мы забрали то, что надо
         Assert.assertNotNull(created_issue);
         assertTrue(created_issue.contains("QAAUT-"));

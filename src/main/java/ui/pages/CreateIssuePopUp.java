@@ -12,7 +12,7 @@ import ui.utils.Helpers;
  */
 public class CreateIssuePopUp {
     private WebDriver driver;
-    Helpers helpers = new Helpers();
+
 
     private final String xpath_createIssue_project_field = "//*[@id=\"project-field\"]";
     private final String xpath_createIssue_type_field = "//*[@id=\"issuetype-field\"]";
@@ -30,6 +30,7 @@ public class CreateIssuePopUp {
 
     @Step("enter project name")
     public void enterProject(String project){
+        Helpers helpers = new Helpers();
         helpers.waitForVisibilityByXpath(xpath_createIssue_project_field);
         helpers.waitForClickableByXpath(xpath_createIssue_project_field);
 
@@ -41,6 +42,7 @@ public class CreateIssuePopUp {
 
     @Step("enter type of issue")
     public void enterType(String issueType){
+        Helpers helpers = new Helpers();
         helpers.waitForVisibilityByXpath(xpath_createIssue_type_field);
         helpers.waitForClickableByXpath(xpath_createIssue_type_field);
 
@@ -52,6 +54,7 @@ public class CreateIssuePopUp {
 
     @Step("enter issue summary")
     public void enterSummary(String summary){
+        Helpers helpers = new Helpers();
         helpers.waitForVisibilityByXpath(xpath_createIssue_summary_field);
         helpers.waitForClickableByXpath(xpath_createIssue_summary_field);
 
@@ -63,21 +66,25 @@ public class CreateIssuePopUp {
 
     @Step("click assign to me button")
     public void clickAssignToMe(){
-        helpers.waitForClickableByXpath(xpath_createIssue_assignToMe_button);
+        Helpers helpers = new Helpers();
+        //helpers.waitForSomethingByXpath(xpath_createIssue_assignToMe_button);
         helpers.waitForVisibilityByXpath(xpath_createIssue_assignToMe_button);
+        helpers.waitForClickableByXpath(xpath_createIssue_assignToMe_button);
         driver.findElement(By.xpath(xpath_createIssue_assignToMe_button)).click();
     }
 
     @Step("click submit button")
     public void clickSubmit(){
-        helpers.waitForClickableByXpath(xpath_createIssue_submit_button);
+        Helpers helpers = new Helpers();
         helpers.waitForVisibilityByXpath(xpath_createIssue_submit_button);
+        helpers.waitForClickableByXpath(xpath_createIssue_submit_button);
 
         driver.findElement(By.xpath(xpath_createIssue_submit_button)).click();
     }
 
     @Step("get key of recently created issue")
     public String getKeyOfCreatedIssue(){
+        Helpers helpers = new Helpers();
         helpers.waitForVisibilityByXpath(xpath_createIssue_created_popup);
         String key =  driver.findElement(By.xpath(xpath_createIssue_created_popup))
                 .getAttribute(xpath_createIssue_created_popup_attribute);

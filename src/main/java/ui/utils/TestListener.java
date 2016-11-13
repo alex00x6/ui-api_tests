@@ -15,6 +15,9 @@ import java.io.IOException;
 
 public class TestListener implements ITestListener {
 
+    String currentDate;
+    String params;
+
     @Attachment
     public File captureScreenshot(WebDriver d) {
         File file = null;
@@ -32,31 +35,37 @@ public class TestListener implements ITestListener {
 
         System.out.println("============onTestStart============");
 
+
     }
 
     @Override
     public void onTestSuccess(ITestResult tr) {
         System.out.println("============onTestSuccess============");
+        String pathSucceed = "C://Users/Storm/Desktop/scr/"+params+"/success/" + tr.getMethod().getMethodName() + ".png";
 
         File screen = captureScreenshot((WebDriver) DriverManager.getDriver());
         try {
-            FileUtils.copyFile(screen, new File("C://Users/Storm/Desktop/scr/test/" + tr.getMethod().getMethodName() + ".png"));
+            FileUtils.copyFile(screen, new File(pathSucceed));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         System.out.println("Screesnshot captured for test case:" + tr.getMethod().getMethodName());
     }
 
     @Override
     public void onTestFailure(ITestResult tr) {
         System.out.println("============onTestFailure============");
-            System.out.println("Screesnshot captured for test case:" + tr.getMethod().getMethodName());
+        String pathFailed = "C://Users/Storm/Desktop/scr/"+params+"/failed/" + tr.getMethod().getMethodName() + ".png";
+
             File screen = captureScreenshot((WebDriver) DriverManager.getDriver());
             try {
-                FileUtils.copyFile(screen, new File("C://Users/Storm/Desktop/scr/test/" + tr.getName() + ".png"));
+                FileUtils.copyFile(screen, new File(pathFailed));
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+        System.out.println("Screesnshot captured for test case:" + tr.getMethod().getMethodName());
         //WebDriver driver = DriverManager.getDriver();
         //driver.quit();
     }
@@ -81,6 +90,12 @@ public class TestListener implements ITestListener {
         Boolean boo = useGrid.contentEquals("true");
         WebDriver driver = GridDriverConfig.createInstance(browserName, boo);
         DriverManager.setWebDriver(driver);
+
+
+        Helpers helpers = new Helpers();
+        currentDate = helpers.getTime();
+
+        params = currentDate+"-"+browserName+"-grid-"+useGrid;
     }
 
     @Override

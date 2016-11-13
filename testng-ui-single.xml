@@ -3,8 +3,8 @@
 	<test name="JiraTestsGRID">
 		<parameter name="useGrid" value="true"/>
 		<parameter name="browserName" value="chrome"/>
-    		<classes>
-		    	<class name="Jira.Test_Ui" />
-		    </classes>
+		<classes>
+			<class name="Jira.Test_Ui" />
+		</classes>
 	</test>
 </suite>
