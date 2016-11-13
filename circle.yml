@@ -1,3 +1,4 @@
-general:
-  artifacts:
-    - mv target/*.jar $CIRCLE_ARTIFACTS
+test:
+  post:
+    - mkdir $CIRCLE_ARTIFACTS/jar_output
+    - mv target/*.jar $CIRCLE_ARTIFACTS/jar_output
