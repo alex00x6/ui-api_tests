@@ -1,4 +1,3 @@
-test:
-  post:
+post:
     - mkdir $CIRCLE_ARTIFACTS/jar_output
     - mv target/*.jar $CIRCLE_ARTIFACTS/jar_output
