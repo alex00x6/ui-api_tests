@@ -108,6 +108,8 @@ public class Issue {
 
     @Step("change summary of issue")
     public void changeSummary(String summary){
+        Helpers helpers = new Helpers();
+        helpers.waitForClickableByXpath(xpath_issue_summary_button);
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
         driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
     }

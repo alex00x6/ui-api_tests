@@ -88,7 +88,7 @@ public class TestListener implements ITestListener {
         String browserName = iTestContext.getCurrentXmlTest().getParameter("browserName");
         String useGrid = iTestContext.getCurrentXmlTest().getParameter("useGrid");
         Boolean boo = useGrid.contentEquals("true");
-        WebDriver driver = GridDriverConfig.createInstance(browserName, boo);
+        WebDriver driver = DriverConfigurator.createInstance(browserName, boo);
         DriverManager.setWebDriver(driver);
 
 

@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Storm on 11.11.2016.
  */
-public class GridDriverConfig {
+public class DriverConfigurator {
     public static WebDriver createInstance(String browserName, Boolean useGrid) {
         URL hostURL = null;
         try {
