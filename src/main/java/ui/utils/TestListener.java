@@ -12,23 +12,37 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 public class TestListener implements ITestListener {
 
     String currentDate;
     String params;
-
-    @Attachment
-    public File captureScreenshot(WebDriver d) {
+    
+    public File captureScreenshot(WebDriver driver) {
         File file = null;
         try {
-            file = ((TakesScreenshot) d).getScreenshotAs(OutputType.FILE);
+            file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
         }catch (WebDriverException e){
             e.printStackTrace();
         }
+        screenshotToAllure(file);
         return file;
     }
+
+    @Attachment(value = "Page screenshot", type = "image/png")
+    public byte[] screenshotToAllure(File screen) {
+        byte[] screenShot = new byte[0];
+        try {
+            screenShot = Files.readAllBytes(screen.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return screenShot;
+    }
+
 
     @Override
     public void onTestStart(ITestResult iTestResult) {
@@ -52,6 +66,7 @@ public class TestListener implements ITestListener {
 
         System.out.println("Screesnshot captured for test case:" + tr.getMethod().getMethodName());
     }
+
 
     @Override
     public void onTestFailure(ITestResult tr) {
