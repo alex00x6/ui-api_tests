@@ -70,7 +70,10 @@ public class CreateIssuePopUp {
         //helpers.waitForSomethingByXpath(xpath_createIssue_assignToMe_button);
         helpers.waitForVisibilityByXpath(xpath_createIssue_assignToMe_button);
         helpers.waitForClickableByXpath(xpath_createIssue_assignToMe_button);
-        driver.findElement(By.xpath(xpath_createIssue_assignToMe_button)).click();
+        //пытаюсь нажать на эту херню и не словить StaleElementReferenceException
+        helpers.retryingFindClickByXpath(xpath_createIssue_assignToMe_button);
+        //если не поможет - надо попробовать нажимать на нее по css локатору
+        //driver.findElement(By.xpath(xpath_createIssue_assignToMe_button)).click();
     }
 
     @Step("click submit button")

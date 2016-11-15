@@ -1,12 +1,9 @@
 package ui.utils;
 
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,15 +23,6 @@ public class Helpers {
         driver = DriverManager.getDriver();
     }
 
-    public void makeScreenshot(String name, String date){
-        sleep(1000);
-        File screen = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        try {
-            FileUtils.copyFile(screen, new File("C://Users/Storm/Desktop/scr/"+date+"/"+name+".png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void sleep(int time){
         //Ожидаем
@@ -73,6 +61,21 @@ public class Helpers {
         wait.until(ExpectedConditions.stalenessOf(element));
     }
 
+    public boolean retryingFindClickByXpath(String XPath) {
+        boolean result = false;
+        int attempts = 0;
+        while(attempts < 2) {
+            try {
+                driver.findElement(By.xpath(XPath)).click();
+                result = true;
+                break;
+            } catch(StaleElementReferenceException e) {
+            }
+            attempts++;
+        }
+        return result;
+    }
+
     public void assertTextByXpath(String XPath, String text){
         driver.navigate().refresh();
         waitForVisibilityByXpath(XPath);
@@ -99,5 +102,7 @@ public class Helpers {
         String currentTitle = driver.getTitle();
         assertTrue(currentTitle.contains(title));
     }
+
+
 
 }

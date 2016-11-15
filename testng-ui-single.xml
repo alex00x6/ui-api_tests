@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite name="JIRA_UI_Tests">
+<suite name="JIRA_UI_Tests" verbose="10">
 	<test name="JiraTestsGRID">
 		<parameter name="useGrid" value="true"/>
 		<parameter name="browserName" value="chrome"/>
