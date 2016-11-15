@@ -3,9 +3,6 @@ package ui.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Step;
 import ui.utils.DriverManager;
 import ui.utils.Helpers;
@@ -64,10 +61,10 @@ public class Issue {
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         helpers.scrollPageUp();
 
-        WebElement type = (new WebDriverWait(driver, 10))
-                .until(ExpectedConditions.elementToBeClickable(By.xpath(xpath_issue_type_button)));
-        type.click();
+        helpers.waitForClickableByXpath(xpath_issue_type_button);
+        driver.findElement(By.xpath(xpath_issue_type_button)).click();
 
+        helpers.waitForClickableByXpath(xpath_issue_type_form);
         driver.findElement(By.xpath(xpath_issue_type_form)).click();
         driver.findElement(By.xpath(xpath_issue_type_form)).clear();
         driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");

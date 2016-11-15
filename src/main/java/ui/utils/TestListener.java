@@ -53,9 +53,9 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult tr) {
         System.out.println("============onTestSuccess============");
-        String pathSucceed = "C://Users/Storm/Desktop/scr/"+params+"/success/" + tr.getMethod().getMethodName() + ".png";
+        String pathSucceed = "target/screenshots/"+params+"/success/" + tr.getMethod().getMethodName() + ".png";
 
-        File screen = captureScreenshot((WebDriver) DriverManager.getDriver());
+        File screen = captureScreenshot(DriverManager.getDriver());
         try {
             FileUtils.copyFile(screen, new File(pathSucceed));
         } catch (IOException e) {
@@ -69,9 +69,9 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult tr) {
         System.out.println("============onTestFailure============");
-        String pathFailed = "C://Users/Storm/Desktop/scr/"+params+"/failed/" + tr.getMethod().getMethodName() + ".png";
+        String pathFailed = "target/screenshots/"+params+"/failed/" + tr.getMethod().getMethodName() + ".png";
 
-            File screen = captureScreenshot((WebDriver) DriverManager.getDriver());
+            File screen = captureScreenshot(DriverManager.getDriver());
             try {
                 FileUtils.copyFile(screen, new File(pathFailed));
             } catch (IOException e) {
@@ -79,8 +79,6 @@ public class TestListener implements ITestListener {
             }
 
         System.out.println("Screesnshot captured for test case:" + tr.getMethod().getMethodName());
-        //WebDriver driver = DriverManager.getDriver();
-        //driver.quit();
     }
 
     @Override
