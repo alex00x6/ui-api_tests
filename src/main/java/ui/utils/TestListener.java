@@ -18,16 +18,15 @@ public class TestListener implements ITestListener {
 
     String currentDate;
     String params;
-    
+
     public File captureScreenshot(WebDriver driver) {
         File file = null;
         try {
             file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
+            screenshotToAllure(file);
         }catch (WebDriverException e){
             e.printStackTrace();
         }
-        screenshotToAllure(file);
         return file;
     }
 
@@ -39,7 +38,6 @@ public class TestListener implements ITestListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return screenShot;
     }
 

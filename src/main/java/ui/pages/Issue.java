@@ -87,8 +87,10 @@ public class Issue {
         //а поле со сменой репортера по странице не ездит(как и приорити и т.п.)
         helpers.scrollPageUp();
 
+        helpers.waitForClickableByXpath(xpath_issue_reporter_button);
+
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
-        //helpers.waitForVisibilityByXpath(xpath_issue_reporter_field);
+        helpers.waitForVisibilityByXpath(xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
     }
 
@@ -102,6 +104,7 @@ public class Issue {
         helpers.waitForVisibilityByXpath(xpath_issue_priority_button);
         helpers.waitForClickableByXpath(xpath_issue_priority_button);
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
+        helpers.waitForVisibilityByXpath(xpath_issue_priority_field);
         driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
     }
 
@@ -111,6 +114,7 @@ public class Issue {
         Helpers helpers = new Helpers();
         helpers.waitForClickableByXpath(xpath_issue_summary_button);
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
+        helpers.waitForVisibilityByXpath(xpath_issue_summary_field);
         driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
     }
 }
