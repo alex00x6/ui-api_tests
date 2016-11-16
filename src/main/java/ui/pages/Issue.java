@@ -49,8 +49,12 @@ public class Issue {
 
     @Step("add comment to issue")
     public void addComment(String comment_text){
+        Helpers helpers = new Helpers();
+        helpers.waitForClickableByXpath(xpath_issue_comment_button);
         driver.findElement(By.xpath(xpath_issue_comment_button)).click();
+        helpers.waitForVisibilityByXpath(xpath_issue_comment_form);
         driver.findElement(By.xpath(xpath_issue_comment_form)).sendKeys(comment_text);
+        helpers.waitForClickableByXpath(xpath_issue_comment_submit_button);
         driver.findElement(By.xpath(xpath_issue_comment_submit_button)).submit();
     }
 
@@ -72,8 +76,12 @@ public class Issue {
 
     @Step("delete issue")
     public void deleteIssue(){
+        Helpers helpers = new Helpers();
+        helpers.waitForClickableByXpath(xpath_issue_more_button);
         driver.findElement(By.xpath(xpath_issue_more_button)).click();
+        helpers.waitForClickableByXpath(xpath_issue_more_delete_button);
         driver.findElement(By.xpath(xpath_issue_more_delete_button)).click();
+        helpers.waitForClickableByXpath(xpath_issue_delete_submit_button);
         driver.findElement(By.xpath(xpath_issue_delete_submit_button)).submit();
     }
 
@@ -87,7 +95,8 @@ public class Issue {
         helpers.waitForClickableByXpath(xpath_issue_reporter_button);
 
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
-        helpers.waitForVisibilityByXpath(xpath_issue_reporter_field);
+        //helpers.waitForVisibilityByXpath(xpath_issue_reporter_field);
+        helpers.waitForPresenceByXpath(xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
     }
 
@@ -111,7 +120,8 @@ public class Issue {
         Helpers helpers = new Helpers();
         helpers.waitForClickableByXpath(xpath_issue_summary_button);
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
-        helpers.waitForVisibilityByXpath(xpath_issue_summary_field);
+        //helpers.waitForVisibilityByXpath(xpath_issue_summary_field);
+        helpers.waitForPresenceByXpath(xpath_issue_summary_field);
         driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
     }
 }

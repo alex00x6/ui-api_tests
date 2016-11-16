@@ -46,17 +46,22 @@ public class Helpers {
     }
 
     public void waitForVisibilityByXpath(String xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
 
     public void waitForClickableByXpath(String xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
     }
 
+    public void waitForPresenceByXpath(String XPath){
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
+    }
+
     public void waitForSomethingByXpath(String xpath){
-        WebDriverWait wait = new WebDriverWait(driver, 20);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         WebElement element = driver.findElement(By.xpath(xpath));
         wait.until(ExpectedConditions.stalenessOf(element));
     }

@@ -53,7 +53,7 @@ public class DriverConfigurator {
         }
 
 
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         return driver;
     }

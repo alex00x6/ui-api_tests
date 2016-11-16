@@ -2,7 +2,7 @@
 <suite name="JIRA_UI_Tests" verbose="10">
 	<test name="JiraTestsGRID">
 		<parameter name="useGrid" value="true"/>
-		<parameter name="browserName" value="chrome"/>
+		<parameter name="browserName" value="firefox"/>
 		<classes>
 			<class name="Jira.Test_Ui" />
 		</classes>

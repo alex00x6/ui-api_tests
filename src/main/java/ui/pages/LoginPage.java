@@ -38,7 +38,7 @@ public class LoginPage {
         driver.findElement(By.xpath(xpath_login_password_form)).sendKeys(password);
     }
 
-    @Step("click remember me(ffs, why the fuck i need this? it worked without it.)")
+    @Step("click remember me") //(ffs, why the fuck i need this? it worked fine without it.)
     public void clickRememberMe(){driver.findElement(By.xpath(xpath_login_rememberMe_button)).click();}
 
     @Step("click submit")

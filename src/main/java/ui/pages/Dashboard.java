@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 import ui.utils.DriverManager;
+import ui.utils.Helpers;
 
 /**
  * Created by Storm on 27.10.2016.
@@ -25,7 +26,10 @@ public class Dashboard {
     }
 
     @Step("click create issue button")
-    public void clickCreate(){driver.findElement(By.xpath(xpath_dashboard_create_button)).click();}
+    public void clickCreate(){
+        Helpers helpers = new Helpers();
+        helpers.waitForClickableByXpath(xpath_dashboard_create_button);
+        driver.findElement(By.xpath(xpath_dashboard_create_button)).click();}
 
 
 }
