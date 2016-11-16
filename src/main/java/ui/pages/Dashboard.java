@@ -27,7 +27,6 @@ public class Dashboard extends Helpers{
 
     @Step("click create issue button")
     public void clickCreate(){
-        //Helpers helpers = new Helpers();
         waitForClickableByXpath(xpath_dashboard_create_button);
         driver.findElement(By.xpath(xpath_dashboard_create_button)).click();}
 

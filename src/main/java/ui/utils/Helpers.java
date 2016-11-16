@@ -96,7 +96,6 @@ public class Helpers {
     }
 
     public void assertEqualsByTitle(String title){
-        //Helpers helpers = new Helpers();
         //TODO
         sleep(2000);
         String currentTitle = driver.getTitle();

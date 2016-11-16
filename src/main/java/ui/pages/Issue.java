@@ -48,19 +48,18 @@ public class Issue extends Helpers{
 
     @Step("add comment to issue")
     public void addComment(String comment_text){
-        //Helpers helpers = new Helpers();
         waitForClickableByXpath(xpath_issue_comment_button);
         driver.findElement(By.xpath(xpath_issue_comment_button)).click();
+
         waitForVisibilityByXpath(xpath_issue_comment_form);
         driver.findElement(By.xpath(xpath_issue_comment_form)).sendKeys(comment_text);
+
         waitForClickableByXpath(xpath_issue_comment_submit_button);
         driver.findElement(By.xpath(xpath_issue_comment_submit_button)).submit();
     }
 
     @Step("change type of issue bug/task/epic/story")
     public void changeType(String issueType){
-       // Helpers helpers = new Helpers();
-
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         scrollPageUp();
 
@@ -68,38 +67,35 @@ public class Issue extends Helpers{
         driver.findElement(By.xpath(xpath_issue_type_button)).click();
 
         waitForClickableByXpath(xpath_issue_type_form);
-        //waitForVisibilityByXpath(xpath_issue_type_form);
         driver.findElement(By.xpath(xpath_issue_type_form)).click();
         driver.findElement(By.xpath(xpath_issue_type_form)).clear();
-        //driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");
         driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType);
         driver.findElement(By.xpath(xpath_issue_type_form)).submit();
     }
 
     @Step("delete issue")
     public void deleteIssue(){
-        //Helpers helpers = new Helpers();
         waitForClickableByXpath(xpath_issue_more_button);
         driver.findElement(By.xpath(xpath_issue_more_button)).click();
+
         waitForClickableByXpath(xpath_issue_more_delete_button);
         driver.findElement(By.xpath(xpath_issue_more_delete_button)).click();
+
         waitForClickableByXpath(xpath_issue_delete_submit_button);
         driver.findElement(By.xpath(xpath_issue_delete_submit_button)).submit();
     }
 
     @Step("change reporter of issue")
     public void changeReporter(String reporter){
-        ////Helpers helpers = new Helpers();
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         //а поле со сменой репортера по странице не ездит(как и приорити и т.п.)
         scrollPageUp();
 
         waitForClickableByXpath(xpath_issue_reporter_button);
-
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
-        waitForVisibilityByXpath(xpath_issue_reporter_field);
-        //waitForPresenceByXpath(xpath_issue_reporter_field);
-        //driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
+
+        //waitForVisibilityByXpath(xpath_issue_reporter_field);
+        waitForClickableByXpath(xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).submit();
     }
@@ -107,17 +103,14 @@ public class Issue extends Helpers{
 
     @Step("change priority of issue")
     public void changePriority(String priority){
-        ////Helpers helpers = new Helpers();
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         scrollPageUp();
 
-        //waitForVisibilityByXpath(xpath_issue_priority_button);
         waitForClickableByXpath(xpath_issue_priority_button);
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
-        waitForVisibilityByXpath(xpath_issue_priority_field);
-        //waitForPresenceByXpath(xpath_issue_priority_field);
-        //driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
-        //пытаюсь написать так чтоб прям нигде не падало. ФФ не может отправить нормально текст а потом альт+s
+
+        //waitForVisibilityByXpath(xpath_issue_priority_field);
+        waitForClickableByXpath(xpath_issue_priority_field);
         driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority);
         driver.findElement(By.xpath(xpath_issue_priority_field)).submit();
     }
@@ -125,12 +118,11 @@ public class Issue extends Helpers{
 
     @Step("change summary of issue")
     public void changeSummary(String summary){
-        ////Helpers helpers = new Helpers();
         waitForClickableByXpath(xpath_issue_summary_button);
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
-        waitForVisibilityByXpath(xpath_issue_summary_field);
-        //waitForPresenceByXpath(xpath_issue_summary_field);
-        //driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
+
+        //waitForVisibilityByXpath(xpath_issue_summary_field);
+        waitForClickableByXpath(xpath_issue_summary_field);
         driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary);
         driver.findElement(By.xpath(xpath_issue_summary_field)).submit();
     }

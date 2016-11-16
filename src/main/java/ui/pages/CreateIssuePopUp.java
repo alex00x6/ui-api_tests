@@ -30,10 +30,8 @@ public class CreateIssuePopUp extends Helpers{
 
     @Step("enter project name")
     public void enterProject(String project){
-        //Helpers helpers = new Helpers();
-        waitForVisibilityByXpath(xpath_createIssue_project_field);
+        //waitForVisibilityByXpath(xpath_createIssue_project_field);
         waitForClickableByXpath(xpath_createIssue_project_field);
-
         driver.findElement(By.xpath(xpath_createIssue_project_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_project_field)).clear();
         driver.findElement(By.xpath(xpath_createIssue_project_field)).sendKeys(project, Keys.ENTER);
@@ -42,10 +40,8 @@ public class CreateIssuePopUp extends Helpers{
 
     @Step("enter type of issue")
     public void enterType(String issueType){
-        //Helpers helpers = new Helpers();
-        waitForVisibilityByXpath(xpath_createIssue_type_field);
+        //waitForVisibilityByXpath(xpath_createIssue_type_field);
         waitForClickableByXpath(xpath_createIssue_type_field);
-
         driver.findElement(By.xpath(xpath_createIssue_type_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_type_field)).clear();
         driver.findElement(By.xpath(xpath_createIssue_type_field)).sendKeys(issueType, Keys.ENTER);
@@ -54,10 +50,7 @@ public class CreateIssuePopUp extends Helpers{
 
     @Step("enter issue summary")
     public void enterSummary(String summary){
-       // Helpers helpers = new Helpers();
-        //waitForVisibilityByXpath(xpath_createIssue_summary_field);
         waitForClickableByXpath(xpath_createIssue_summary_field);
-
         driver.findElement(By.xpath(xpath_createIssue_summary_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_summary_field)).clear();
         driver.findElement(By.xpath(xpath_createIssue_summary_field)).sendKeys(summary, Keys.TAB);
@@ -66,28 +59,20 @@ public class CreateIssuePopUp extends Helpers{
 
     @Step("click assign to me button")
     public void clickAssignToMe(){
-        ////Helpers helpers = new Helpers();
-        //waitForSomethingByXpath(xpath_createIssue_assignToMe_button);
-        waitForVisibilityByXpath(xpath_createIssue_assignToMe_button);
         waitForClickableByXpath(xpath_createIssue_assignToMe_button);
         //пытаюсь нажать на эту херню и не словить StaleElementReferenceException
         //если не поможет - надо попробовать нажимать на нее по css локатору
         retryingFindClickByXpath(xpath_createIssue_assignToMe_button);
-        //driver.findElement(By.xpath(xpath_createIssue_assignToMe_button)).click();
     }
 
     @Step("click submit button")
     public void clickSubmit(){
-        //Helpers helpers = new Helpers();
-        //waitForVisibilityByXpath(xpath_createIssue_submit_button);
         waitForClickableByXpath(xpath_createIssue_submit_button);
-
         driver.findElement(By.xpath(xpath_createIssue_submit_button)).click();
     }
 
     @Step("get key of recently created issue")
     public String getKeyOfCreatedIssue(){
-        //Helpers helpers = new Helpers();
         waitForVisibilityByXpath(xpath_createIssue_created_popup);
         String key =  driver.findElement(By.xpath(xpath_createIssue_created_popup))
                 .getAttribute(xpath_createIssue_created_popup_attribute);
