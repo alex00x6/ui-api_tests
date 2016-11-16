@@ -30,7 +30,6 @@ public class CreateIssuePopUp extends Helpers{
 
     @Step("enter project name")
     public void enterProject(String project){
-        //waitForVisibilityByXpath(xpath_createIssue_project_field);
         waitForClickableByXpath(xpath_createIssue_project_field);
         driver.findElement(By.xpath(xpath_createIssue_project_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_project_field)).clear();
@@ -40,7 +39,6 @@ public class CreateIssuePopUp extends Helpers{
 
     @Step("enter type of issue")
     public void enterType(String issueType){
-        //waitForVisibilityByXpath(xpath_createIssue_type_field);
         waitForClickableByXpath(xpath_createIssue_type_field);
         driver.findElement(By.xpath(xpath_createIssue_type_field)).click();
         driver.findElement(By.xpath(xpath_createIssue_type_field)).clear();
