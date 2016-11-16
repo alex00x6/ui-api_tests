@@ -9,7 +9,7 @@ import ui.utils.Helpers;
 /**
  * Created by Storm on 27.10.2016.
  */
-public class Dashboard {
+public class Dashboard extends Helpers{
 
     private WebDriver driver;
     private final String url_dashboard = "http://soft.it-hillel.com.ua:8080/secure/Dashboard.jspa";
@@ -27,8 +27,8 @@ public class Dashboard {
 
     @Step("click create issue button")
     public void clickCreate(){
-        Helpers helpers = new Helpers();
-        helpers.waitForClickableByXpath(xpath_dashboard_create_button);
+        //Helpers helpers = new Helpers();
+        waitForClickableByXpath(xpath_dashboard_create_button);
         driver.findElement(By.xpath(xpath_dashboard_create_button)).click();}
 
 

@@ -6,10 +6,10 @@ import ru.yandex.qatools.allure.annotations.Step;
 import ui.utils.DriverManager;
 import ui.utils.Helpers;
 
-public class LoginPage {
+public class LoginPage extends Helpers{
 
     private WebDriver driver;
-    Helpers helpers = new Helpers();
+    //Helpers helpers = new Helpers();
     private final String url_login = "http://soft.it-hillel.com.ua:8080/login.jsp";
     private final String xpath_login_username_form = "//input[@id='login-form-username']";
     private final String xpath_login_password_form = "//input[@id='login-form-password']";
@@ -29,7 +29,7 @@ public class LoginPage {
 
     @Step("enter login")
     public void enterLogin(String login){
-        helpers.waitForClickableByXpath(xpath_login_username_form);
+        waitForClickableByXpath(xpath_login_username_form);
         driver.findElement(By.xpath(xpath_login_username_form)).sendKeys(login);
     }
 

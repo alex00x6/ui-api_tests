@@ -10,7 +10,7 @@ import ui.utils.Helpers;
 /**
  * Created by Storm on 27.10.2016.
  */
-public class Issue {
+public class Issue extends Helpers{
 
     private WebDriver driver;
     private final String url_issue = "http://soft.it-hillel.com.ua:8080/browse/";
@@ -49,26 +49,26 @@ public class Issue {
 
     @Step("add comment to issue")
     public void addComment(String comment_text){
-        Helpers helpers = new Helpers();
-        helpers.waitForClickableByXpath(xpath_issue_comment_button);
+        //Helpers helpers = new Helpers();
+        waitForClickableByXpath(xpath_issue_comment_button);
         driver.findElement(By.xpath(xpath_issue_comment_button)).click();
-        helpers.waitForVisibilityByXpath(xpath_issue_comment_form);
+        waitForVisibilityByXpath(xpath_issue_comment_form);
         driver.findElement(By.xpath(xpath_issue_comment_form)).sendKeys(comment_text);
-        helpers.waitForClickableByXpath(xpath_issue_comment_submit_button);
+        waitForClickableByXpath(xpath_issue_comment_submit_button);
         driver.findElement(By.xpath(xpath_issue_comment_submit_button)).submit();
     }
 
     @Step("change type of issue bug/task/epic/story")
     public void changeType(String issueType){
-        Helpers helpers = new Helpers();
+       // Helpers helpers = new Helpers();
 
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
-        helpers.scrollPageUp();
+        scrollPageUp();
 
-        helpers.waitForClickableByXpath(xpath_issue_type_button);
+        waitForClickableByXpath(xpath_issue_type_button);
         driver.findElement(By.xpath(xpath_issue_type_button)).click();
 
-        helpers.waitForClickableByXpath(xpath_issue_type_form);
+        waitForClickableByXpath(xpath_issue_type_form);
         driver.findElement(By.xpath(xpath_issue_type_form)).click();
         driver.findElement(By.xpath(xpath_issue_type_form)).clear();
         driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");
@@ -76,52 +76,52 @@ public class Issue {
 
     @Step("delete issue")
     public void deleteIssue(){
-        Helpers helpers = new Helpers();
-        helpers.waitForClickableByXpath(xpath_issue_more_button);
+        //Helpers helpers = new Helpers();
+        waitForClickableByXpath(xpath_issue_more_button);
         driver.findElement(By.xpath(xpath_issue_more_button)).click();
-        helpers.waitForClickableByXpath(xpath_issue_more_delete_button);
+        waitForClickableByXpath(xpath_issue_more_delete_button);
         driver.findElement(By.xpath(xpath_issue_more_delete_button)).click();
-        helpers.waitForClickableByXpath(xpath_issue_delete_submit_button);
+        waitForClickableByXpath(xpath_issue_delete_submit_button);
         driver.findElement(By.xpath(xpath_issue_delete_submit_button)).submit();
     }
 
     @Step("change reporter of issue")
     public void changeReporter(String reporter){
-        Helpers helpers = new Helpers();
+        ////Helpers helpers = new Helpers();
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         //а поле со сменой репортера по странице не ездит(как и приорити и т.п.)
-        helpers.scrollPageUp();
+        scrollPageUp();
 
-        helpers.waitForClickableByXpath(xpath_issue_reporter_button);
+        waitForClickableByXpath(xpath_issue_reporter_button);
 
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
-        //helpers.waitForVisibilityByXpath(xpath_issue_reporter_field);
-        helpers.waitForPresenceByXpath(xpath_issue_reporter_field);
+        //waitForVisibilityByXpath(xpath_issue_reporter_field);
+        waitForPresenceByXpath(xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
     }
 
 
     @Step("change priority of issue")
     public void changePriority(String priority){
-        Helpers helpers = new Helpers();
+        ////Helpers helpers = new Helpers();
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
-        helpers.scrollPageUp();
+        scrollPageUp();
 
-        helpers.waitForVisibilityByXpath(xpath_issue_priority_button);
-        helpers.waitForClickableByXpath(xpath_issue_priority_button);
+        waitForVisibilityByXpath(xpath_issue_priority_button);
+        waitForClickableByXpath(xpath_issue_priority_button);
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
-        helpers.waitForVisibilityByXpath(xpath_issue_priority_field);
+        waitForPresenceByXpath(xpath_issue_priority_field);
         driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
     }
 
 
     @Step("change summary of issue")
     public void changeSummary(String summary){
-        Helpers helpers = new Helpers();
-        helpers.waitForClickableByXpath(xpath_issue_summary_button);
+        ////Helpers helpers = new Helpers();
+        waitForClickableByXpath(xpath_issue_summary_button);
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
-        //helpers.waitForVisibilityByXpath(xpath_issue_summary_field);
-        helpers.waitForPresenceByXpath(xpath_issue_summary_field);
+        //waitForVisibilityByXpath(xpath_issue_summary_field);
+        waitForPresenceByXpath(xpath_issue_summary_field);
         driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
     }
 }
