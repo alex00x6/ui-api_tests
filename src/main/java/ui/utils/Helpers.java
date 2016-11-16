@@ -96,11 +96,11 @@ public class Helpers {
     }
 
     public void assertEqualsByTitle(String title){
-        Helpers helpers = new Helpers();
+        //Helpers helpers = new Helpers();
         //TODO
-        helpers.sleep(2000);
+        sleep(2000);
         String currentTitle = driver.getTitle();
-        assertEquals(currentTitle, title);
+        assertEquals(title,currentTitle);
     }
 
     public void assertContainsByTitle(String title){

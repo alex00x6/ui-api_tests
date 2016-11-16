@@ -55,7 +55,7 @@ public class CreateIssuePopUp extends Helpers{
     @Step("enter issue summary")
     public void enterSummary(String summary){
        // Helpers helpers = new Helpers();
-        waitForVisibilityByXpath(xpath_createIssue_summary_field);
+        //waitForVisibilityByXpath(xpath_createIssue_summary_field);
         waitForClickableByXpath(xpath_createIssue_summary_field);
 
         driver.findElement(By.xpath(xpath_createIssue_summary_field)).click();

@@ -1,7 +1,6 @@
 package ui.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 import ui.utils.DriverManager;
@@ -69,9 +68,12 @@ public class Issue extends Helpers{
         driver.findElement(By.xpath(xpath_issue_type_button)).click();
 
         waitForClickableByXpath(xpath_issue_type_form);
+        //waitForVisibilityByXpath(xpath_issue_type_form);
         driver.findElement(By.xpath(xpath_issue_type_form)).click();
         driver.findElement(By.xpath(xpath_issue_type_form)).clear();
-        driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");
+        //driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType, Keys.ALT+"S");
+        driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType);
+        driver.findElement(By.xpath(xpath_issue_type_form)).submit();
     }
 
     @Step("delete issue")
@@ -95,9 +97,11 @@ public class Issue extends Helpers{
         waitForClickableByXpath(xpath_issue_reporter_button);
 
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
-        //waitForVisibilityByXpath(xpath_issue_reporter_field);
-        waitForPresenceByXpath(xpath_issue_reporter_field);
-        driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
+        waitForVisibilityByXpath(xpath_issue_reporter_field);
+        //waitForPresenceByXpath(xpath_issue_reporter_field);
+        //driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter, Keys.ENTER);
+        driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter);
+        driver.findElement(By.xpath(xpath_issue_reporter_field)).submit();
     }
 
 
@@ -107,11 +111,15 @@ public class Issue extends Helpers{
         //скроллим страницу вверх, т.к после создания коммента jira автоматически скроллит страницу к коменту
         scrollPageUp();
 
-        waitForVisibilityByXpath(xpath_issue_priority_button);
+        //waitForVisibilityByXpath(xpath_issue_priority_button);
         waitForClickableByXpath(xpath_issue_priority_button);
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
-        waitForPresenceByXpath(xpath_issue_priority_field);
-        driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
+        waitForVisibilityByXpath(xpath_issue_priority_field);
+        //waitForPresenceByXpath(xpath_issue_priority_field);
+        //driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority, Keys.ALT+"S");
+        //пытаюсь написать так чтоб прям нигде не падало. ФФ не может отправить нормально текст а потом альт+s
+        driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority);
+        driver.findElement(By.xpath(xpath_issue_priority_field)).submit();
     }
 
 
@@ -120,8 +128,10 @@ public class Issue extends Helpers{
         ////Helpers helpers = new Helpers();
         waitForClickableByXpath(xpath_issue_summary_button);
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
-        //waitForVisibilityByXpath(xpath_issue_summary_field);
-        waitForPresenceByXpath(xpath_issue_summary_field);
-        driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
+        waitForVisibilityByXpath(xpath_issue_summary_field);
+        //waitForPresenceByXpath(xpath_issue_summary_field);
+        //driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary, Keys.ALT+"S");
+        driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary);
+        driver.findElement(By.xpath(xpath_issue_summary_field)).submit();
     }
 }

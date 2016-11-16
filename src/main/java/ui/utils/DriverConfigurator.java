@@ -3,6 +3,7 @@ package ui.utils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -41,7 +42,8 @@ public class DriverConfigurator {
         }
         else{
             if (browserName.toLowerCase().contains("firefox")) {
-                System.out.println("OOOOOPS! Not configured yet");
+               driver = new FirefoxDriver();
+                System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
             }
             if (browserName.toLowerCase().contains("internet")) {
                 System.out.println("OOOOOPS! Not configured yet");
