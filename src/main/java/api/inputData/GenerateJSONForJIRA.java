@@ -137,7 +137,7 @@ public class GenerateJSONForJIRA {
         JSONObject credentials = new JSONObject();
         JSONArray array = new JSONArray();
 
-        array.add("summary");
+        //array.add("summary");
         array.add("key");
 
         credentials.put("jql", credentialsFromProperties.get("jql"));
