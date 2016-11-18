@@ -18,6 +18,9 @@ public class DeleteRedundantIssues_API {
 
     private final String[] usefulIssues = {"QAAUT-500", "QAAUT-499", "QAAUT-89", "QAAUT-17", "QAAUT-15"};
 
+    //BFG9000 удаляет все ISSUE, полученные в поиске по Jira через метод searchForIssues, кроме указанных в usefulIssues
+    //(сейчас поиск ищет по reporter = alex00x6, project = QAAUT)
+
 
     @Test
     public void makeMagic(){
