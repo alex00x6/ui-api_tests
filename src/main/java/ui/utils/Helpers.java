@@ -96,9 +96,10 @@ public class Helpers {
         assertFalse(aIssueTitle.contains(text));
     }
 
+    //TODO
     public void assertEqualsByTitle(String title){
-        //TODO
-        sleep(2000);
+        WebDriverWait wait = new WebDriverWait(driver, 15);
+        wait.until(ExpectedConditions.titleContains(title));
         String currentTitle = driver.getTitle();
         assertEquals(title,currentTitle);
     }
