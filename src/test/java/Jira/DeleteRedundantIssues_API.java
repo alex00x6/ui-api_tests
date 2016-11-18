@@ -21,12 +21,12 @@ public class DeleteRedundantIssues_API {
 
     @Test
     public void makeMagic(){
-        System.out.println(responseGetKeys(searchIssues()).toString());
-        deleteByIteration(removeUsefulIssuesFromList(responseGetKeys(searchIssues())));
-        System.out.println(responseGetKeys(searchIssues()).toString());
+        System.out.println(getKeysFromResponse(searchForIssues()).toString());
+        deleteIssuesInList(removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues())));
+        System.out.println(getKeysFromResponse(searchForIssues()).toString());
     }
 
-    private void deleteByIteration(List<String> list){
+    private void deleteIssuesInList(List<String> list){
         RequestGroups requestGroups = new RequestGroups();
         for (int i = 0; i < list.size(); i++){
             requestGroups.deleteIssue(list.get(i));
@@ -35,7 +35,7 @@ public class DeleteRedundantIssues_API {
     }
 
 
-    private String searchIssues(){
+    private String searchForIssues(){
         RequestGroups requestGroups = new RequestGroups();
         GenerateJSONForJIRA generateJSONForJIRA = new GenerateJSONForJIRA();
         RestAssured.baseURI = "http://soft.it-hillel.com.ua:8080/"; //JIRA Hillel
@@ -47,7 +47,7 @@ public class DeleteRedundantIssues_API {
         return jsonAsString;
     }
 
-    private List<String> responseGetKeys(String jsonAsString){
+    private List<String> getKeysFromResponse(String jsonAsString){
         JSONObject obj = new JSONObject(jsonAsString);
         JSONArray issues = obj.getJSONArray("issues");
         int n = issues.length();
