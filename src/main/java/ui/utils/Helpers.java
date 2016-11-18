@@ -18,6 +18,7 @@ import static org.testng.Assert.assertFalse;
  */
 public class Helpers {
     private WebDriver driver;
+    Integer waits = 60;
 
     public Helpers(){
         driver = DriverManager.getDriver();
@@ -46,22 +47,22 @@ public class Helpers {
     }
 
     public void waitForVisibilityByXpath(String xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, waits);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
     }
 
     public void waitForClickableByXpath(String xpath) {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, waits);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
     }
 
     public void waitForPresenceByXpath(String XPath){
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, waits);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPath)));
     }
 
     public void waitForSomethingByXpath(String xpath){
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, waits);
         WebElement element = driver.findElement(By.xpath(xpath));
         wait.until(ExpectedConditions.stalenessOf(element));
     }

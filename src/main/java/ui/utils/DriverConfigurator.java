@@ -9,7 +9,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Storm on 11.11.2016.
@@ -55,7 +54,7 @@ public class DriverConfigurator {
         }
 
 
-        driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         return driver;
     }

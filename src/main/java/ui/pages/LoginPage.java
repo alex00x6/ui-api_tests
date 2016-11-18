@@ -35,14 +35,19 @@ public class LoginPage extends Helpers{
 
     @Step("enter password")
     public void enterPassword(String password){
+        waitForClickableByXpath(xpath_login_password_form);
         driver.findElement(By.xpath(xpath_login_password_form)).sendKeys(password);
     }
 
     @Step("click remember me") //(ffs, why the fuck i need this? it worked fine without it.)
-    public void clickRememberMe(){driver.findElement(By.xpath(xpath_login_rememberMe_button)).click();}
+    public void clickRememberMe(){
+        waitForClickableByXpath(xpath_login_rememberMe_button);
+        driver.findElement(By.xpath(xpath_login_rememberMe_button)).click();
+    }
 
     @Step("click submit")
     public void clickSubmit(){
+        waitForClickableByXpath(xpath_login_submit_button);
         driver.findElement(By.xpath(xpath_login_submit_button)).click();
     }
 

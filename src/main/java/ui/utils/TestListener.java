@@ -16,10 +16,9 @@ import java.nio.file.Files;
 
 public class TestListener implements ITestListener {
 
-    String currentDate;
-    String params;
+    private String params;
 
-    public File captureScreenshot(WebDriver driver) {
+    private File captureScreenshot(WebDriver driver) {
         File file = null;
         try {
             file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -31,7 +30,7 @@ public class TestListener implements ITestListener {
     }
 
     @Attachment(value = "Page screenshot", type = "image/png")
-    public byte[] screenshotToAllure(File screen) {
+    private byte[] screenshotToAllure(File screen) {
         byte[] screenShot = new byte[0];
         try {
             screenShot = Files.readAllBytes(screen.toPath());
@@ -104,9 +103,9 @@ public class TestListener implements ITestListener {
 
 
         Helpers helpers = new Helpers();
-        currentDate = helpers.getTime();
+        String currentDate = helpers.getTime();
 
-        params = currentDate+"-"+browserName+"-grid-"+useGrid;
+        params = currentDate +"-"+browserName+"-grid-"+useGrid;
     }
 
     @Override
