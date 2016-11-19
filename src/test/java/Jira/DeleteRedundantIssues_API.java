@@ -41,9 +41,7 @@ public class DeleteRedundantIssues_API {
 
     private void deleteIssuesInList(List<String> list){
         RequestGroups requestGroups = new RequestGroups();
-        for (int i = 0; i < list.size(); i++){
-            requestGroups.deleteIssue(list.get(i));
-        }
+        list.forEach(requestGroups::deleteIssue);
 
     }
 
@@ -57,8 +55,7 @@ public class DeleteRedundantIssues_API {
         RequestSender requestSender = requestGroups
                 .search(generateJSONForJIRA.searchByJql(searchJql));
         System.out.println(requestSender.response.asString());
-        String jsonAsString = requestSender.response.asString();
-        return jsonAsString;
+        return requestSender.response.asString();
     }
 
     private List<String> getKeysFromResponse(String jsonAsString){
@@ -77,16 +74,15 @@ public class DeleteRedundantIssues_API {
     }
 
     private List<String> removeUsefulIssuesFromList(List<String> list){
-        List<String> result = list;
-        for(int i = 0; i < result.size(); i++){
-            for(int in = 0; in < usefulIssues.length; in++){
-                if(result.get(i).equals(usefulIssues[in])){
-                    result.remove(i);
+        for(int i = 0; i < list.size(); i++){
+            for (String usefulIssue : usefulIssues) {
+                if (list.get(i).equals(usefulIssue)) {
+                    list.remove(i);
                 }
             }
         }
-        System.out.println(result.toString());
-        return result;
+        System.out.println(list.toString());
+        return list;
     }
 
 }
