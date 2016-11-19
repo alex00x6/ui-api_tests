@@ -153,7 +153,7 @@ public class GenerateJSONForJIRA {
         return credentials.toJSONString();
     }
 
-    public String search(String jql) {
+    public String searchByJql(String jql) {
         HashMap<String, String> credentialsFromProperties = propertiesInput.readProperties();
         JSONObject credentials = new JSONObject();
         JSONArray array = new JSONArray();

@@ -17,16 +17,26 @@ import java.util.List;
 public class DeleteRedundantIssues_API {
 
     private final String[] usefulIssues = {"QAAUT-500", "QAAUT-499", "QAAUT-89", "QAAUT-17", "QAAUT-15"};
+    private final String searchJql = "project=QAAUT and assignee=alex00x6";
 
     //BFG9000 удаляет все ISSUE, полученные в поиске по Jira через метод searchForIssues, кроме указанных в usefulIssues
-    //(сейчас поиск ищет по reporter = alex00x6, project = QAAUT)
+    //(сейчас поиск работает по передаваемому параметру searchJql)
 
 
     @Test
     public void makeMagic(){
-        System.out.println(getKeysFromResponse(searchForIssues()).toString());
-        deleteIssuesInList(removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues())));
-        System.out.println(getKeysFromResponse(searchForIssues()).toString());
+        //эта команда покажет ответ от сервера в JSON
+        //searchForIssues();
+
+        //эта команда позволяет посмотреть отдельно ключи, полученные из поиска
+        //getKeysFromResponse(searchForIssues());
+
+        //эта команда позволяет посмотреть отфильрованный(подготовленный к удалению) список ключей
+        //removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues()));
+
+        //а эта команда позволяет разбомбить всё найденное и отфильрованное
+        //deleteIssuesInList(removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues())));
+
     }
 
     private void deleteIssuesInList(List<String> list){
@@ -44,7 +54,8 @@ public class DeleteRedundantIssues_API {
         RestAssured.baseURI = "http://soft.it-hillel.com.ua:8080/"; //JIRA Hillel
         requestGroups.authenticate();
 
-        RequestSender requestSender = requestGroups.search(generateJSONForJIRA.search());
+        RequestSender requestSender = requestGroups
+                .search(generateJSONForJIRA.searchByJql(searchJql));
         System.out.println(requestSender.response.asString());
         String jsonAsString = requestSender.response.asString();
         return jsonAsString;
