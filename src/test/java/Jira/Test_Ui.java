@@ -6,10 +6,10 @@ import org.testng.annotations.Test;
 import ru.yandex.qatools.allure.annotations.Features;
 import ru.yandex.qatools.allure.annotations.Stories;
 import ru.yandex.qatools.allure.annotations.TestCaseId;
-import ui.pages.CreateIssuePopUp;
-import ui.pages.Dashboard;
-import ui.pages.Issue;
-import ui.pages.LoginPage;
+import ui.jiraPages.CreateIssuePopUp;
+import ui.jiraPages.Dashboard;
+import ui.jiraPages.Issue;
+import ui.jiraPages.LoginPage;
 import ui.utils.Helpers;
 import ui.utils.TestListener;
 

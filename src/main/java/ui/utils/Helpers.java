@@ -18,7 +18,7 @@ import static org.testng.Assert.assertFalse;
  */
 public class Helpers {
     private WebDriver driver;
-    Integer waits = 60;
+    Integer waits = 90;
 
     public Helpers(){
         driver = DriverManager.getDriver();
@@ -98,7 +98,7 @@ public class Helpers {
 
     //TODO
     public void assertEqualsByTitle(String title){
-        WebDriverWait wait = new WebDriverWait(driver, 15);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.titleContains(title));
         String currentTitle = driver.getTitle();
         assertEquals(title,currentTitle);

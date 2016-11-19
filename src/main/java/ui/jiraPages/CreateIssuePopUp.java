@@ -1,4 +1,4 @@
-package ui.pages;
+package ui.jiraPages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
