@@ -1,6 +1,7 @@
 package ui.jiraPages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import ru.yandex.qatools.allure.annotations.Step;
 import ui.utils.DriverManager;
@@ -66,10 +67,11 @@ public class Issue extends Helpers{
         waitForClickableByXpath(xpath_issue_type_button);
         driver.findElement(By.xpath(xpath_issue_type_button)).click();
 
-        waitForClickableByXpath(xpath_issue_type_form);
+        //waitForClickableByXpath(xpath_issue_type_form);
         driver.findElement(By.xpath(xpath_issue_type_form)).click();
         driver.findElement(By.xpath(xpath_issue_type_form)).clear();
         driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(issueType);
+        driver.findElement(By.xpath(xpath_issue_type_form)).sendKeys(Keys.ENTER);
         driver.findElement(By.xpath(xpath_issue_type_form)).submit();
     }
 
@@ -95,8 +97,9 @@ public class Issue extends Helpers{
         driver.findElement(By.xpath(xpath_issue_reporter_button)).click();
 
         //waitForVisibilityByXpath(xpath_issue_reporter_field);
-        waitForClickableByXpath(xpath_issue_reporter_field);
+        //waitForClickableByXpath(xpath_issue_reporter_field);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(reporter);
+        driver.findElement(By.xpath(xpath_issue_reporter_field)).sendKeys(Keys.ENTER);
         driver.findElement(By.xpath(xpath_issue_reporter_field)).submit();
     }
 
@@ -110,8 +113,9 @@ public class Issue extends Helpers{
         driver.findElement(By.xpath(xpath_issue_priority_button)).click();
 
         //waitForVisibilityByXpath(xpath_issue_priority_field);
-        waitForClickableByXpath(xpath_issue_priority_field);
+        //waitForClickableByXpath(xpath_issue_priority_field);
         driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(priority);
+        driver.findElement(By.xpath(xpath_issue_priority_field)).sendKeys(Keys.ENTER);
         driver.findElement(By.xpath(xpath_issue_priority_field)).submit();
     }
 
@@ -122,8 +126,9 @@ public class Issue extends Helpers{
         driver.findElement(By.xpath(xpath_issue_summary_button)).click();
 
         //waitForVisibilityByXpath(xpath_issue_summary_field);
-        waitForClickableByXpath(xpath_issue_summary_field);
+       // waitForClickableByXpath(xpath_issue_summary_field);
         driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(summary);
+        driver.findElement(By.xpath(xpath_issue_summary_field)).sendKeys(Keys.ENTER);
         driver.findElement(By.xpath(xpath_issue_summary_field)).submit();
     }
 }

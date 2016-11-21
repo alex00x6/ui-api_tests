@@ -1,6 +1,7 @@
 package ui.utils;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -54,6 +55,13 @@ public class Helpers {
     public void waitForClickableByXpath(String xpath) {
         WebDriverWait wait = new WebDriverWait(driver, waits);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+    }
+
+    public void waitForPageToLoad(){
+        ExpectedCondition<Boolean> pageLoadCondition = driver1 -> ((JavascriptExecutor) driver1)
+                .executeScript("return document.readyState").equals("complete");
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(pageLoadCondition);
     }
 
     public void waitForPresenceByXpath(String XPath){

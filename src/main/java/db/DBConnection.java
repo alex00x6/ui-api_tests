@@ -10,7 +10,17 @@ import java.sql.SQLException;
 public class DBConnection {
 
 
+
     public Connection createConnection(){
+        String host = "jdbc:mysql://localhost:3306/";
+        String database = "test";
+        String user = "alex00x6";
+        String password = "666999";
+        String mysqlParams = "?useSSL=false&" +
+                "useUnicode=true&" +
+                "useJDBCCompliantTimezoneShift=true&" +
+                "useLegacyDatetimeCode=false&serverTimezone=UTC";
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -23,7 +33,7 @@ public class DBConnection {
 
         try {
             connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost:3306/test","alex00x6", "666999");
+                    .getConnection(host+database+mysqlParams, user , password);
 
         } catch (SQLException e) {
             System.out.println("Connection Failed! Check output console");
@@ -36,5 +46,15 @@ public class DBConnection {
             System.out.println("Failed to make connection!");
         }
         return connection;
+    }
+
+    public void closeConnection(Connection connection){
+        try {
+            connection.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
     }
 }

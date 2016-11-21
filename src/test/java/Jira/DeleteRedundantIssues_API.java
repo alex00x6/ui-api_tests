@@ -17,7 +17,7 @@ import java.util.List;
 public class DeleteRedundantIssues_API {
 
     private final String[] usefulIssues = {"QAAUT-500", "QAAUT-499", "QAAUT-89", "QAAUT-17", "QAAUT-15"};
-    private final String searchJql = "project=QAAUT and assignee=alex00x6";
+    private final String searchJql = "project=QAAUT and reporter=alex00x6";
 
     //BFG9000 удаляет все ISSUE, полученные в поиске по Jira через метод searchForIssues, кроме указанных в usefulIssues
     //(сейчас поиск работает по передаваемому параметру searchJql)
@@ -35,7 +35,7 @@ public class DeleteRedundantIssues_API {
         //removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues()));
 
         //а эта команда позволяет разбомбить всё найденное и отфильрованное
-        //deleteIssuesInList(removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues())));
+        deleteIssuesInList(removeUsefulIssuesFromList(getKeysFromResponse(searchForIssues())));
 
     }
 
